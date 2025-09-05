@@ -1,0 +1,38 @@
+{% extends 'reviews/base.html' %}
+{% load static %}
+
+{% block title %}Connexion / Inscription{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'reviews/css/accueil.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="loginSection">
+    <div class="logo">
+        <p>LIT-Review</p>
+    </div>
+    <div class="login-box">
+        <p>Connexion</p>
+        <form>
+            <div class="user-box">
+                <input required="" name="" type="text">
+                <label>Email</label>
+            </div>
+            <div class="user-box">
+                <input required="" name="" type="password">
+                <label>Mot de passe</label>
+            </div>
+            <a href="#">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Soumettre
+            </a>
+        </form>
+        <p id="signupcontent">Inscrivez-vous maintenant<a href="{% url 'signup'%}" class="a2">S'inscrire!</a></p>
+    </div>
+
+</section>
+{% endblock %}

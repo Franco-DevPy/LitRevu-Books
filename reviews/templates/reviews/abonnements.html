@@ -1,0 +1,52 @@
+{% extends 'reviews/base.html' %}
+{% load static %}
+
+
+
+{% block extra_css %}
+{% if debug %}
+<link rel="stylesheet" href="{% static 'reviews/css/abonnements.css' %}?v={% now 'U' %}">
+{% else %}
+<link rel="stylesheet" href="{% static 'reviews/css/abonnements.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="abonnementsSection">
+    <div class="abonnementsSearch">
+        <div class="searchBar">
+            <input type="text" placeholder="Rechercher un ami...">
+            <button class="searchButton">
+                <iconify-icon width="20" icon="akar-icons:search" class="searchIcon"></iconify-icon>
+            </button>
+        </div>
+        <div class="searchResults">
+            <div class="abonnementsCards">
+                <h3>Résultats de la recherche</h3>
+                <div class="abonnementsItem">
+                    <p>severine123
+                    </p>
+                    <button class="followButton">abonner</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="abonnementsCards">
+        <h3>Abonnements</h3>
+        <div class="abonnementsItem">
+            <p>severine123
+            </p>
+            <button class="followButton">Désabonner</button>
+        </div>
+    </div>
+    <div class="abonnesCards">
+        <h3>Abonnés</h3>
+        <div class="abonnesItem">
+
+            <p>jean_5679
+            </p>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

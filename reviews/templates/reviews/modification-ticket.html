@@ -1,0 +1,67 @@
+{% extends 'reviews/base.html' %}
+{% load static %}
+
+{% block title %}Connexion / Inscription{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'reviews/css/modification-ticket.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="loginSection">
+    <div class="login-box">
+        <p id="titleModif">Modifier Ticket</p>
+        <div>
+
+            <div class="containerReview">
+                <div class="user-box imageContainer">
+                    <img src="{% static 'images/image.png' %}" alt="Card Image">
+                    <iconify-icon class="edit-icon" icon="lucide:edit" width="23" height="23"></iconify-icon>
+                </div>
+                <div class="containerDetail">
+                    <div>
+                        <h3>Nom Livre <iconify-icon class="edit-icon-nom" icon="lucide:edit" width="20"
+                                height="20"></iconify-icon></h3>
+                        <p>22/11/2025</p>
+                        <p>Auteur</p>
+                    </div>
+                    <div>
+                        <p class="description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et nihil
+                            repellendus fuga ipsum.
+                            Sint
+                            dolorem laborum officiis quam excepturi, itaque perspiciatis consectetur ipsam cupiditate
+                            nemo
+                            ad deleniti voluptas corrupti reiciendis, commodi, est expedita voluptatibus? Dolorum
+                            assumenda
+                            molestias id excepturi, modi iusto explicabo cupiditate odit hic nobis suscipit numquam,
+                            quod
+                            reprehenderit.</p>
+                        <iconify-icon class="edit-icon-description" icon="lucide:edit" width="20"
+                            height="20"></iconify-icon>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="button-box">
+
+                <a href="#">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Annuler
+                </a>
+                <a href="#">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Enregistrer
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

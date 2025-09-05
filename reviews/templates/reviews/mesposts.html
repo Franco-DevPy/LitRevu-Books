@@ -1,0 +1,87 @@
+{% extends 'reviews/base.html' %}
+{% load static %}
+
+{% block title %}Connexion / Inscription{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'reviews/css/mesposts.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="loginSection ">
+    <div class="containerTickets">
+        <div class="login-box boxTicket">
+            <p id="responseTo">Vos Tickets
+
+            </p>
+
+
+            <div class="containerReview">
+                <div class="user-box imageContainer">
+                    <img src="{% static 'images/image.png' %}" alt="Card Image">
+                    <iconify-icon class="icon-user" icon="fa6-solid:user-pen" width="34" height="34"></iconify-icon>
+                </div>
+                <div class="containerDetail">
+                    <div>
+                        <h3>Nom Livre</h3>
+                        <p>22/11/2025</p>
+                        <p>Auteur</p>
+                    </div>
+                    <div>
+                        <p class="description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et nihil
+                            repellendus fuga ipsum.
+                            Sint
+                            dolorem laborum officiis quam excepturi, itaque perspiciatis consectetur ipsam cupiditate
+                            nemo
+                            ad deleniti voluptas corrupti reiciendis, commodi, est expedita voluptatibus? Dolorum
+                            assumenda
+                            molestias id excepturi, modi iusto explicabo cupiditate odit hic nobis suscipit numquam,
+                            quod
+                            reprehenderit.</p>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="containerCritiques">
+        <div class="login-box boxTicket">
+            <p id="responseTo">Vos Critiques
+
+            </p>
+
+            <div class="containerReview">
+                <div class="user-box imageContainer">
+                    <img src="{% static 'images/image.png' %}" alt="Card Image">
+                    <iconify-icon class="icon-user" icon="fa6-solid:user-pen" width="34" height="34"></iconify-icon>
+                </div>
+                <div class="containerDetail">
+                    <div>
+                        <h3>Nom Livre</h3>
+                        <p>22/11/2025</p>
+                        <p>Auteur</p>
+                    </div>
+                    <div>
+                        <p class="description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et nihil
+                            repellendus fuga ipsum.
+                            Sint
+                            dolorem laborum officiis quam excepturi, itaque perspiciatis consectetur ipsam cupiditate
+                            nemo
+                            ad deleniti voluptas corrupti reiciendis, commodi, est expedita voluptatibus? Dolorum
+                            assumenda
+                            molestias id excepturi, modi iusto explicabo cupiditate odit hic nobis suscipit numquam,
+                            quod
+                            reprehenderit.</p>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}

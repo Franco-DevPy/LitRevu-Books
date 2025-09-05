@@ -1,0 +1,281 @@
+.feedSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.cards {
+  border-bottom: 2px solid rgb(204, 204, 204);
+  padding: 0 0 3rem 0;
+  position: relative;
+}
+
+.cards::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: white;
+  position: absolute;
+  bottom: -6px;
+}
+
+.cards::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: white;
+  position: absolute;
+  bottom: -6px;
+  right: 0;
+}
+
+.CardContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.icon-user {
+  color: rgb(24, 66, 206);
+  display: inline-block;
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  padding: 0.5rem;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 50%;
+  background-color: white;
+}
+.boxBtn {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-right: 13.5rem;
+}
+
+.CardContainerBox {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.Btn-ticket {
+  background: rgba(0, 0, 0, 0.9);
+
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.cardAllContent {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3rem;
+}
+
+.cardTicket {
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  flex: 0 1 85%;
+  padding: 3rem 2rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10rem;
+}
+
+.cardTicket h3 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  margin: 0;
+  text-transform: uppercase;
+  padding: 2rem;
+  background-color: #0c0f16;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+}
+
+.cardSingle {
+  border: 1px solid white;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 15px;
+  transform: scale(1);
+  transition: transform 0.5s ease-in-out;
+  display: flex;
+  height: 200px;
+}
+
+.cardSingle:hover {
+  transform: scale(1.02);
+  transition: transform 0.5s ease-in-out;
+}
+
+.textBox {
+  flex: 1 1 80%;
+  position: relative;
+}
+
+.imageContainer {
+  flex: 1 1 8%;
+  overflow: hidden;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+
+  border-radius: 10px;
+}
+
+.imageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.cardSingle h2 {
+  margin: 0;
+  text-align: center;
+}
+
+.cardSingle > p {
+  font-weight: lighter;
+  font-size: 0.8rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-clamp: 3;
+}
+
+.cardContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.textContainer {
+  width: 95%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 0.8rem;
+  align-items: center;
+  border: 1px solid rgb(255, 255, 255);
+  gap: 1rem;
+}
+
+.textContainer iconify-icon {
+  color: rgb(24, 66, 206);
+  display: inline-block;
+}
+
+.textContent {
+  flex: 0 0 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.textContent p {
+  margin: 0.5rem;
+}
+
+/* Tooltip styles */
+.has-tooltip {
+  position: relative;
+}
+
+.has-tooltip::after {
+  text-transform: uppercase;
+  content: attr(data-tooltip);
+  position: absolute;
+  left: -10%;
+  top: -8px;
+  transform: translate(-50%, -100%);
+  background: #111827;
+  color: #fff;
+  border: 1px solid #b0bdda;
+  font-size: 12px;
+  line-height: 1;
+  padding: 8px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 999;
+}
+
+.has-tooltip::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  transform: translate(-50%, -100%);
+  border: 6px solid transparent;
+  border-top-color: #111827;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+  z-index: 999;
+}
+
+.has-tooltip:hover::after {
+  opacity: 1;
+  transform: translate(-50%, calc(-100% - 4px));
+}
+
+.has-tooltip:hover::before {
+  opacity: 1;
+}
+
+.reviewsCards {
+  width: 100%;
+  display: flex;
+}
+
+.reviewSingle {
+  width: 100%;
+  border: 1px solid white;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: #0a0a0a;
+  background-image: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 1px, transparent 0), linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 0);
+  background-size: 40px 40px, 20px 20px, 20px 20px;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.reviewDetails {
+  margin: 0 auto;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+  align-self: center;
+
+  & p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #bbbbbb;
+  }
+}

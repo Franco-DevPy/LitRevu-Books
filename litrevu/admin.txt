@@ -1,0 +1,7 @@
+admin
+admin@admin.com
+
+totototo
+
+python manage.py changepassword <nombre de usuario>
+

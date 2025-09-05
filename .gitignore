@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.log
+
+# Entorno / IDE
+venv/
+.env
+.env.*
+.vscode/
+.idea/
+*.code-workspace
+
+# SO
+.DS_Store
+Thumbs.db
+
+# Archivos de migraciones de Django
+*.sqlite3
+!db.sqlite3
+
+# Archivos estáticos generados (si usas collectstatic en despliegue)
+staticfiles/
+
+# Subidas locales (si no quieres versionar imágenes de desarrollo)
+media/

@@ -1,0 +1,48 @@
+{% extends 'reviews/base.html' %}
+{% load static %}
+
+{% block title %}Connexion / Inscription{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'reviews/css/signup.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="singUpSection">
+    <div class="login-box">
+        <p>Inscrivez-vous</p>
+        <form>
+            <div class="user-box">
+                <input required="" name="" type="text">
+                <label>Nom</label>
+            </div>
+
+
+            <div class="user-box">
+                <input required="" name="" type="password">
+                <label>Mot de passe</label>
+            </div>
+            <div class="user-box">
+                <input required="" name="" type="email">
+                <label>Confirmer le mot de passe</label>
+            </div>
+            <div class="buttons">
+                <a href="{% url 'accueil' %}">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Retourner
+                </a>
+                <a href="#">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    S'inscrire
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
