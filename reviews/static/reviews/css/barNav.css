@@ -9,7 +9,6 @@
   gap: 7.5px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 1rem;
   padding-left: 10px;
   padding-right: 10px;
   transition: all 0.2s ease;
@@ -67,4 +66,7 @@
 .value svg.normal {
   width: 15px;
   margin-top: 1px;
+}
+
+.icon-feed {
 }

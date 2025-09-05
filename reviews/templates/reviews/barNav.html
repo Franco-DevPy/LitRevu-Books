@@ -1,37 +1,33 @@
 <div class="input">
+    <a class="value" href="{% url 'accueil' %}"><iconify-icon class="icon-feed" icon="wpf:connected" width="30"
+            height="30"></iconify-icon></a>
+
     <a class="value" href="{% url 'feed' %}">
-        <svg class="normal" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M9,13H15V19H18V10L12,5.5L6,10V19H9V13M4,21V9L12,3L20,9V21H4Z" fill="currentColor"></path>
-        </svg>
-        Feed
+        <iconify-icon class="icon-feed" icon="mdi-home" width="30" height="30"></iconify-icon>
+
     </a>
-    <a class="value" href="{% url 'review_create' %}">Créer une critique</a>
-    <a class="value" href="{% url 'ticket_create' %}">Créer un ticket</a>
-    <a class="value" href="{% url 'ticket_review_create' %}">Ticket + Critique</a>
+    <a class="value" href="{% url 'review_create' %}"> <iconify-icon class="icon-feed"
+            icon="streamline-sharp:add-pdf-solid" width="30" height="30"></iconify-icon></a>
+    <a class="value" href="{% url 'ticket_create' %}"><iconify-icon class="icon-feed" icon="icon-park-outline:doc-add"
+            width="30" height="30"></iconify-icon></a>
+    <a class="value" href="{% url 'ticket_review_create' %}">
+        <iconify-icon class="icon-feed" icon="fluent:book-add-20-filled" width="30" height="30"></iconify-icon>
+    </a>
     <a class="value" href="{% url 'abonnements' %}">
-        <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
-            viewBox="0 0 100 58" version="1.1" aria-hidden="true">
-            <g>
-                <circle r="13.5" fill="currentColor" cy="13.5" cx="31.452"></circle>
-                <path fill="currentColor"
-                    d="M32.153,56.771c2.661-10.485,7.516-19.379,13.92-25.685c-0.039-0.027-0.077-0.059-0.116-0.086h-29.01   C9.134,36.436,3.011,46.132,0,58h31.841L32.153,56.771z">
-                </path>
-                <g>
-                    <circle r="13.5" fill="currentColor" cy="13.5" cx="68.452"></circle>
-                    <path fill="currentColor"
-                        d="M82.957,31h-29.01C46.134,36.436,40.011,46.132,37,58h62.904C96.894,46.132,90.771,36.436,82.957,31z">
-                    </path>
-                </g>
-            </g>
-        </svg>
-        Abonnements
+        <iconify-icon class="icon-feed" icon="mingcute:user-add-fill" width="30" height="30"></iconify-icon>
     </a>
 
-    <a class="value" href="{% url 'signup' %}">Inscription</a>
-    <a class="value" href="{% url 'accueil' %}">Accueil</a>
-    <a class="value" href="{% url 'logout' %}">Déconnexion</a>
-    <a class="value" href="{% url 'mesposts' %}">Mes Posts</a>
-    <a class="value" href="{% url 'modification-ticket' %}">Modifier Ticket</a>
-    <a class="value" href="{% url 'modification-critique' %}">Modifier Critique</a>
+    <a class="value" href="{% url 'signup' %}"><iconify-icon class="icon-feed" icon="ic:round-login" width="30"
+            height="30"></iconify-icon></a>
+
+    <a class="value" href="{% url 'mesposts' %}"><iconify-icon class="icon-feed" icon="fluent:box-48-filled" width="30"
+            height="30"></iconify-icon></a>
+    <a class="value" href="{% url 'modification-ticket' %}"><iconify-icon class="icon-feed" icon="el:file-edit"
+            width="30" height="30"></iconify-icon></a>
+    <a class="value" href="{% url 'modification-critique' %}"><iconify-icon class="icon-feed" icon="ic:round-edit-note"
+            width="30" height="30"></iconify-icon></a>
+
+    <a class="value" href="{% url 'logout' %}"><iconify-icon class="icon-feed" icon="el:off" width="30"
+            height="30"></iconify-icon></a>
 
 </div>
