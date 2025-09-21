@@ -22,11 +22,24 @@
   padding: 10px;
   color: aliceblue;
   display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   gap: 5px;
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.2s ease;
+}
+
+.logout-btn {
+  color: rgba(243, 27, 27, 0.952);
+}
+
+.user-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 25px;
 }
 
 .value:not(:active):hover,

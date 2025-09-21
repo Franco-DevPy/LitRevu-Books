@@ -4,9 +4,7 @@ from . import views
 
 
 urlpatterns = [
-    # Accueil -> feed
     path("", views.feed_view, name="feed"),
-    # Auth simples (templates statiques pour l'instant)
     path("signup/", views.signup_view, name="signup"),
     path(
         "accueil/",
@@ -14,8 +12,6 @@ urlpatterns = [
         name="accueil",
     ),
     path("logout/", views.logout_view, name="logout"),
-    # Préviews des autres pages/templates
-    # Création de review -> accessible uniquement via /new/review_create/
     path("new/review_create/", views.review_create_view, name="review_create"),
     path("tickets/new/", views.ticket_create_view, name="ticket_create"),
     path(

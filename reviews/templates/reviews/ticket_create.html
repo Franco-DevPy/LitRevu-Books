@@ -1,8 +1,7 @@
 {% extends 'reviews/base.html' %}
 {% load static %}
 
-{% block title %}Connexion / Inscription{% endblock %}
-
+{% block title %}Créer un ticket{% endblock %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'reviews/css/create_ticket.css' %}">
 {% endblock %}
@@ -11,36 +10,38 @@
 <section class="loginSection">
     <div class="login-box">
         <p>Créer un ticket</p>
-        <form>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
             <div class="user-box">
-                <input required="" name="" type="text">
-                <label>Title</label>
+                {{ form.title.errors }}
+                {{ form.title }}
+                <label for="{{ form.title.id_for_label }}">Title</label>
             </div>
+
             <div class="user-box box-file">
-                <input required="" name="image" type="file">
-                <label>image</label>
+                {{ form.image.errors }}
+                {{ form.image }}
+                <label for="{{ form.image.id_for_label }}">Image</label>
             </div>
 
             <div class="user-box">
-                <textarea required="" name="" rows="3"></textarea>
+                {{ form.description.errors }}
+                {{ form.description }}
+                <!-- <label for="{{ form.description.id_for_label }}">Description</label> -->
             </div>
 
             <div class="button-box">
-
-                <a href="#">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <a href="{% url 'feed' %}">
+                    <span></span><span></span><span></span><span></span>
                     Annuler
                 </a>
-                <a href="#">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <button type="submit" class="action-btn">
+                    <span></span><span></span><span></span><span></span>
                     Enregistrer
-                </a>
+                </button>
             </div>
         </form>
     </div>

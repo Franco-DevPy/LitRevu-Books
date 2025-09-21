@@ -14,22 +14,27 @@
     </div>
     <div class="login-box">
         <p>Connexion</p>
-        <form>
+        <form method="post" action="{% url 'accueil' %}">
+            {% csrf_token %}
+            {% if form and form.errors %}
+            <div class="errors">Identifiants invalides. Veuillez réessayer.</div>
+            {% endif %}
             <div class="user-box">
-                <input required="" name="" type="text">
-                <label>Email</label>
+                <input required name="username" type="text" autocomplete="username" autofocus
+                    value="{{ form.username.value|default:'' }}">
+                <label>Nom d'utilisateur</label>
             </div>
             <div class="user-box">
-                <input required="" name="" type="password">
+                <input required name="password" type="password" autocomplete="current-password">
                 <label>Mot de passe</label>
             </div>
-            <a href="#">
+            <button type="submit" class="submit-anchor-like">
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
-                Soumettre
-            </a>
+                Connexion
+            </button>
         </form>
         <p id="signupcontent">Inscrivez-vous maintenant<a href="{% url 'signup'%}" class="a2">S'inscrire!</a></p>
     </div>

@@ -122,6 +122,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = [BASE_DIR / "review" / "static"]
+
+# Media (para ImageField)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+# Redirections authentification
+# La page de connexion est la vue LoginView nommée 'accueil'
+LOGIN_URL = "accueil"
+LOGIN_REDIRECT_URL = "feed"
+LOGOUT_REDIRECT_URL = "accueil"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

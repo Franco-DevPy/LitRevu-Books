@@ -5,6 +5,7 @@
   align-items: center;
   gap: 3rem;
   margin-top: 2rem;
+  padding: 25px 100px;
 }
 
 .cards {
@@ -41,7 +42,7 @@
 }
 
 .icon-user {
-  color: rgb(24, 66, 206);
+  color: rgb(22, 66, 211);
   display: inline-block;
   position: absolute;
   top: -1rem;
@@ -58,6 +59,12 @@
   justify-content: flex-end;
   align-items: flex-end;
   padding-right: 13.5rem;
+}
+
+.no-reviews-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #1742d3;
 }
 
 .CardContainerBox {
@@ -83,13 +90,14 @@
   justify-content: center;
   align-items: flex-start;
   gap: 3rem;
+  width: 100%;
 }
 
 .cardTicket {
   background: rgba(0, 0, 0, 0.9);
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
-  flex: 0 1 85%;
+  flex: 1 1 100%;
   padding: 3rem 2rem 2rem 2rem;
   position: relative;
   overflow: hidden;
@@ -150,7 +158,14 @@
 
 .cardSingle h2 {
   margin: 0;
-  text-align: center;
+  margin-left: auto;
+  text-align: left;
+  display: flex;
+}
+
+.icon-title {
+  color: rgb(22, 66, 211);
+  margin-right: 20px;
 }
 
 .cardSingle > p {
@@ -181,7 +196,7 @@
 }
 
 .textContainer iconify-icon {
-  color: rgb(24, 66, 206);
+  color: rgb(22, 66, 211);
   display: inline-block;
 }
 
@@ -278,4 +293,14 @@
     font-size: 0.9rem;
     color: #bbbbbb;
   }
+}
+
+.no-tickets-message {
+  color: rgb(255, 45, 45);
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 2rem;
+  padding: 15px;
+  border: 1px solid rgb(255, 45, 45);
+  border-radius: 15px;
 }

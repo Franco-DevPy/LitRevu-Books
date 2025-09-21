@@ -24,10 +24,76 @@
         {% include 'reviews/barNav.html' %}
     </header>
     <main>
+        {# Messages flash (succès / erreurs) #}
+        {% if messages %}
+        <ul class="messages" style="list-style:none;padding:0;margin:1rem 0;">
+            {% for message in messages %}
+            <li class="message {{ message.tags }}" role="alert" data-timeout="4000">
+                <span class="message-text">{{ message }}</span>
+                <button type="button" class="message-close" aria-label="Fermer">&times;</button>
+            </li>
+            {% endfor %}
+        </ul>
+        <style>
+            .messages .message {
+                position: relative;
+                padding: .6rem 2.2rem .6rem 1rem;
+                margin-bottom: .5rem;
+                border-radius: 4px;
+                font-size: .95rem;
+                opacity: 1;
+                transition: opacity .5s ease, transform .5s ease;
+            }
+
+            .messages .message.fade-out {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+
+            .messages .message.success {
+                background: #d1fae5;
+                color: #065f46;
+            }
+
+            .messages .message.error {
+                background: #fee2e2;
+                color: #991b1b;
+            }
+
+            .messages .message.warning {
+                background: #fef3c7;
+                color: #92400e;
+            }
+
+            .messages .message.info {
+                background: #e0f2fe;
+                color: #075985;
+            }
+
+            .messages .message-close {
+                position: absolute;
+                top: 4px;
+                right: 8px;
+                background: transparent;
+                border: none;
+                font-size: 1.1rem;
+                line-height: 1;
+                color: inherit;
+                cursor: pointer;
+                padding: 2px 4px;
+            }
+
+            .messages .message-close:focus {
+                outline: 2px solid rgba(0, 0, 0, .3);
+                outline-offset: 2px;
+            }
+        </style>
+        {% endif %}
         {% block content %}
         {% endblock %}
     </main>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.1.0/dist/iconify-icon.min.js"></script>
+    <script src="{% static 'reviews/js/flash_messages.js' %}"></script>
     {% django_browser_reload_script %}
 </body>
 

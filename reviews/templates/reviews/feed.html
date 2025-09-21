@@ -26,27 +26,24 @@
             <div class="CardContainer">
                 <h3>Dernières publications</h3>
                 <div class="cards">
+
+                    {% for ticket in tickets %}
                     <div class="cardSingle">
 
                         <div class="textBox">
-                            <h2>NAME BOOK GOES HERE</h2>
-                            <p>Description of the card content goes here.
-                                Description of the card content goes here.
-                                Description of the card content goes here.
-                                Description of the card content goes here
-                                Description of the card content goes here Description of the card content goes here
-                                Description
-                                of the card content goes here Description of the card content goes here
+                            <h2> <iconify-icon class="icon-title" icon="fluent:book-add-20-filled" width="30"
+                                    height="30"></iconify-icon> {{ ticket.title }}</h2>
+                            <p>{{ ticket.description }}
                             </p>
                             <div class="cardContainer">
 
                                 <div class="textContainer">
                                     <div class="textContent">
-                                        <p>Autor de la reseña</p>
+                                        <p>{{ ticket.user.username }}</p>
                                         <p>5/5
                                     </div>
                                     <div class="textContent">
-                                        <p>22/11/2025
+                                        <p>{{ ticket.time_created|date:"d/m/Y" }}
                                         </p>
                                         <a href="" class="has-tooltip" data-tooltip="Ajouter une critique"
                                             aria-label="Ajouter une critique">
@@ -57,143 +54,40 @@
                             </div>
                         </div>
                         <div class="imageContainer">
+                            {% if ticket.image %}
+                            <img src="{{ ticket.image.url }}" alt="Card Image">
+                            {% else %}
                             <img src="{% static 'images/image.png' %}" alt="Card Image">
+                            {% endif %}
+                            <!-- icono editar deshabilitado temporalmente -->
                             <iconify-icon class="icon-user" icon="fa6-solid:user-pen" width="34"
                                 height="34"></iconify-icon>
                         </div>
 
 
                     </div>
+
+                    {% empty %}
+                    <p class="no-ticket-message">Aucun ticket pour le moment.</p>
+                    {% endfor %}
+
+                    {% for review in reviews %}
                     <div class="reviewsCards">
                         <div class="reviewSingle">
-                            <p>Description of the card content goes here.
-                                Description of the card content goes here.
-                                Description of the card content goes here
-                                Description of the card content goes here Description of the card content goes here
-                                Description</p>
+                            <p>{{ review.description }}</p>
                             <div class="reviewDetails">
-                                <p>Author: John Doe</p>
-                                <p>Date: 22/11/2025</p>
-                                <p>Rating: 5/5</p>
-                            </div class="reviewDetails">
-                        </div>
-
-                    </div>
-                    <div class="reviewsCards">
-                        <div class="reviewSingle">
-                            <p>Description of the card content goes here.
-                                Description of the card content goes here.
-                                Description of the card content goes here
-                                Description of the card content goes here Description of the card content goes here
-                                Description</p>
-                            <div class="reviewDetails">
-                                <p>Author: John Doe</p>
-                                <p>Date: 22/11/2025</p>
-                                <p>Rating: 5/5</p>
-                            </div class="reviewDetails">
-                        </div>
-
-                    </div>
-                </div>
-                <div class="cardSingle">
-                    <div class="textBox">
-                        <iconify-icon class="icon-user" icon="fa6-solid:user-pen" width="34" height="34"></iconify-icon>
-                        <h2>NAME BOOK GOES HERE</h2>
-                        <p>Description of the card content goes here.
-                            Description of the card content goes here.
-                            Description of the card content goes here.
-                            Description of the card content goes here
-                            Description of the card content goes here Description of the card content goes here
-                            Description
-                            of the card content goes here Description of the card content goes here
-                        </p>
-                        <div class="cardContainer">
-
-                            <div class="textContainer">
-                                <div class="textContent">
-                                    <p>Autor de la reseña</p>
-                                    <p>5/5
-                                </div>
-                                <div class="textContent">
-                                    <p>22/11/2025
-                                    </p>
-                                    <a href="" class="has-tooltip" data-tooltip="Ajouter une critique"
-                                        aria-label="Ajouter une critique">
-                                        <iconify-icon icon="f7:plus-app-fill" width="24" height="24"></iconify-icon>
-                                    </a>
-                                </div>
+                                <p>Author: {{ review.user.username }}</p>
+                                <p>Date: {{ review.date|date:"d/m/Y" }}</p>
+                                <p>Rating: {{ review.rating }}/5</p>
                             </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="cardSingle">
-                    <div class="textBox">
-                        <iconify-icon class="icon-user" icon="fa6-solid:user-pen" width="34" height="34"></iconify-icon>
-                        <h2>NAME BOOK GOES HERE</h2>
-                        <p>Description of the card content goes here.
-                            Description of the card content goes here.
-                            Description of the card content goes here.
-                            Description of the card content goes here
-                            Description of the card content goes here Description of the card content goes here
-                            Description
-                            of the card content goes here Description of the card content goes here
-                        </p>
-                        <div class="cardContainer">
+                    </div>
+                    {% empty %}
+                    <p class="no-reviews-message">Aucune critique pour le moment.</p>
+                    {% endfor %}
 
-                            <div class="textContainer">
-                                <div class="textContent">
-                                    <p>Autor de la reseña</p>
-                                    <p>5/5
-                                </div>
-                                <div class="textContent">
-                                    <p>22/11/2025
-                                    </p>
-                                    <a href="" class="has-tooltip" data-tooltip="Ajouter une critique"
-                                        aria-label="Ajouter une critique">
-                                        <iconify-icon icon="f7:plus-app-fill" width="24" height="24"></iconify-icon>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="imageContainer">
-                        <img src="{% static 'images/image.png' %}" alt="Card Image">
-                    </div>
-                </div>
-                <div class="cardSingle">
-                    <div class="textBox">
-                        <iconify-icon class="icon-user" icon="fa6-solid:user-pen" width="34" height="34"></iconify-icon>
-                        <h2>NAME BOOK GOES HERE</h2>
-                        <p>Description of the card content goes here.
-                            Description of the card content goes here.
-                            Description of the card content goes here.
-                            Description of the card content goes here
-                            Description of the card content goes here Description of the card content goes here
-                            Description
-                            of the card content goes here Description of the card content goes here
-                        </p>
-                        <div class="cardContainer">
 
-                            <div class="textContainer">
-                                <div class="textContent">
-                                    <p>Autor de la reseña</p>
-                                    <p>5/5
-                                </div>
-                                <div class="textContent">
-                                    <p>22/11/2025
-                                    </p>
-                                    <a href="" class="has-tooltip" data-tooltip="Ajouter une critique"
-                                        aria-label="Ajouter une critique">
-                                        <iconify-icon icon="f7:plus-app-fill" width="24" height="24"></iconify-icon>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="imageContainer">
-                        <img src="{% static 'images/image.png' %}" alt="Card Image">
-                    </div>
                 </div>
             </div>
         </div>

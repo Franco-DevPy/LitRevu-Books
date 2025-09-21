@@ -20,7 +20,6 @@ class Ticket(models.Model):
 class Review(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField(
-        # validates that rating must be between 0 and 5
         validators=[MinValueValidator(0), MaxValueValidator(5)]
     )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -41,6 +40,5 @@ class UserFollows(models.Model):
     )
 
     class Meta:
-        # ensures we don't get multiple UserFollows instances
-        # for unique user-user_followed pairs
+
         unique_together = ("user", "followed_user")
