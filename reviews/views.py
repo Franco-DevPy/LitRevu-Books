@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from .forms import TicketForm, ReviewForm, FollowForm
 from django.contrib.auth.forms import UserCreationForm
@@ -10,12 +10,22 @@ from .models import Ticket, Review
 
 
 @login_required
-@login_required
 def feed_view(request):
     tickets = Ticket.objects.all().order_by("-time_created")
     reviews = Review.objects.all().order_by("-time_created")
+
+    reviewed_ticket_ids = set(
+        Review.objects.filter(user=request.user).values_list("ticket_id", flat=True)
+    )
+
     return render(
-        request, "reviews/feed.html", {"tickets": tickets, "reviews": reviews}
+        request,
+        "reviews/feed.html",
+        {
+            "tickets": tickets,
+            "reviews": reviews,
+            "reviewed_ticket_ids": reviewed_ticket_ids,
+        },
     )
 
 
@@ -36,8 +46,33 @@ def signup_view(request):
     return render(request, "reviews/signup.html", {"form": form})
 
 
-def review_create_view(request):
-    return render(request, "reviews/review_create.html")
+@login_required
+def review_create_view(request, ticket_id):
+    ticket = get_object_or_404(Ticket, pk=ticket_id)
+    if Review.objects.filter(ticket=ticket, user=request.user).exists():
+        messages.info(request, "Vous avez déjà rédigé une critique pour ce ticket.")
+        return redirect("feed")
+
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.ticket = ticket
+            review.user = request.user
+            review.save()
+            messages.success(request, "Critique créée.")
+            return redirect("feed")
+
+        else:
+            messages.error(request, "Veuillez corriger les erreurs.")
+    else:
+        form = ReviewForm()
+
+    return render(
+        request,
+        "reviews/review_create.html",
+        {"form": form, "ticket": ticket},
+    )
 
 
 @login_required
@@ -70,12 +105,53 @@ def logout_view(request):
     return render(request, "reviews/logout.html")
 
 
+@login_required
 def mypost(request):
-    return render(request, "reviews/mesposts.html")
+    """
+    Mostrar los tickets y reviews del usuario conectado.
+    """
+    # 1) Obtener tickets del usuario, ordenados por fecha descendente
+    tickets = Ticket.objects.filter(user=request.user).order_by("-time_created")
+
+    # 2) Obtener reviews del usuario. select_related('ticket') evita consultas adicionales
+    reviews = (
+        Review.objects.filter(user=request.user)
+        .select_related("ticket")
+        .order_by("-time_created")
+    )
+
+    context = {
+        "tickets": tickets,
+        "reviews": reviews,
+        # 'page_tickets': page_tickets,
+        # 'page_reviews': page_reviews,
+    }
+    return render(request, "reviews/mesposts.html", context)
 
 
-def modifierTicket(request):
-    return render(request, "reviews/modification-ticket.html")
+@login_required
+def modifierTicket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, pk=ticket_id)
+
+    # Sécurité: seul le propriétaire peut éditer
+    if ticket.user != request.user:
+        messages.error(request, "Vous ne pouvez pas modifier ce ticket.")
+        return redirect("feed")
+
+    if request.method == "POST":
+        form = TicketForm(request.POST, request.FILES, instance=ticket)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Ticket modifié.")
+            return redirect("feed")
+        else:
+            messages.error(request, "Corrigez les erreurs.")
+    else:
+        form = TicketForm(instance=ticket)
+
+    return render(
+        request, "reviews/modification-ticket.html", {"form": form, "ticket": ticket}
+    )
 
 
 def modifierCritique(request):

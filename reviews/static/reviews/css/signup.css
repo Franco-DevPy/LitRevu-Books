@@ -206,3 +206,29 @@
   justify-content: center;
   gap: 1rem;
 }
+
+/* --- Gestion autofill pour éviter fond blanc sur thème sombre --- */
+.login-box .user-box input:-webkit-autofill,
+.login-box .user-box input:-webkit-autofill:hover,
+.login-box .user-box input:-webkit-autofill:focus,
+.login-box .user-box input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #000 inset !important;
+  box-shadow: 0 0 0 1000px #000 inset !important;
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff;
+  border-bottom: 1px solid #fff !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.login-box .user-box input:-moz-autofill {
+  box-shadow: 0 0 0 1000px #000 inset !important;
+  -moz-text-fill-color: #fff !important;
+  caret-color: #fff;
+  border-bottom: 1px solid #fff !important;
+}
+
+.login-box .user-box input {
+  background-color: #000 !important;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}

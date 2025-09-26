@@ -14,11 +14,7 @@
 {% block content %}
 <section class="feedSection">
 
-    <div class="boxBtn">
-        <a class="Btn-ticket" href="{% url 'ticket_create' %}">Demander une critique</a>
-        <a class="Btn-ticket" href="{% url 'ticket_review_create' %}">Créer une critique</a>
 
-    </div>
     <div class="cardAllContent">
 
 
@@ -45,10 +41,21 @@
                                     <div class="textContent">
                                         <p>{{ ticket.time_created|date:"d/m/Y" }}
                                         </p>
-                                        <a href="" class="has-tooltip" data-tooltip="Ajouter une critique"
-                                            aria-label="Ajouter une critique">
-                                            <iconify-icon icon="f7:plus-app-fill" width="24" height="24"></iconify-icon>
-                                        </a>
+                                        <div class="textContent">
+                                            <p>{{ ticket.time_created|date:"d/m/Y" }}</p>
+                                            {% if ticket.id in reviewed_ticket_ids %}
+                                            <span class="already-reviewed" title="Vous avez déjà rédigé une critique.">
+                                                <iconify-icon icon="mdi:check-circle" width="22"
+                                                    height="22"></iconify-icon>
+                                            </span>
+                                            {% else %}
+                                            <a href="{% url 'review_create' ticket.id %}" class="has-tooltip"
+                                                data-tooltip="Ajouter une critique" aria-label="Ajouter une critique">
+                                                <iconify-icon icon="f7:plus-app-fill" width="24"
+                                                    height="24"></iconify-icon>
+                                            </a>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -60,8 +67,12 @@
                             <img src="{% static 'images/image.png' %}" alt="Card Image">
                             {% endif %}
                             <!-- icono editar deshabilitado temporalmente -->
-                            <iconify-icon class="icon-user" icon="fa6-solid:user-pen" width="34"
-                                height="34"></iconify-icon>
+                            {% if request.user == ticket.user %}
+                            <a href="{% url 'modification-ticket' ticket.id %}">
+                                <iconify-icon class="icon-user" icon="fa6-solid:user-pen" width="34"
+                                    height="34"></iconify-icon>
+                            </a>
+                            {% endif %}
                         </div>
 
 
@@ -76,9 +87,9 @@
                         <div class="reviewSingle">
                             <p>{{ review.description }}</p>
                             <div class="reviewDetails">
-                                <p>Author: {{ review.user.username }}</p>
-                                <p>Date: {{ review.date|date:"d/m/Y" }}</p>
-                                <p>Rating: {{ review.rating }}/5</p>
+                                <p>{{ review.body|default:"(Pas de contenu)" }}</p>
+                                <p>Date: {{ review.time_created|date:"d/m/Y" }}</p>
+                                <p>Note : {{ review.rating }}/5</p>
                             </div>
                         </div>
 

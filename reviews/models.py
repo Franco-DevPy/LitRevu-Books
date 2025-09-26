@@ -27,8 +27,12 @@ class Review(models.Model):
     body = models.TextField(max_length=8192, blank=True)
     time_created = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.headline} - {self.rating}/5"
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["ticket", "user"], name="uniq_review_per_user_ticket"
+            )
+        ]
 
 
 class UserFollows(models.Model):

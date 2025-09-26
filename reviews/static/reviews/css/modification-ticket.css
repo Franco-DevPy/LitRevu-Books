@@ -66,7 +66,9 @@
   margin-bottom: 1.5rem;
 }
 
-.login-box div a {
+/* === Boutons animés (liens et boutons) === */
+.login-box a,
+.login-box button.submit-btn {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
@@ -79,20 +81,30 @@
   transition: 0.5s;
   margin-top: 40px;
   letter-spacing: 3px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
-.login-box a:hover {
+.login-box a:hover,
+.login-box a:focus-visible,
+.login-box button.submit-btn:hover,
+.login-box button.submit-btn:focus-visible {
   background: #fff;
   color: #272727;
   border-radius: 5px;
+  outline: none;
 }
 
-.login-box a span {
+.login-box a span,
+.login-box button.submit-btn span {
   position: absolute;
   display: block;
 }
 
-.login-box a span:nth-child(1) {
+.login-box a span:nth-child(1),
+.login-box button.submit-btn span:nth-child(1) {
   top: 0;
   left: -100%;
   width: 100%;
@@ -112,7 +124,8 @@
   }
 }
 
-.login-box a span:nth-child(2) {
+.login-box a span:nth-child(2),
+.login-box button.submit-btn span:nth-child(2) {
   top: -100%;
   right: 0;
   width: 2px;
@@ -133,7 +146,8 @@
   }
 }
 
-.login-box a span:nth-child(3) {
+.login-box a span:nth-child(3),
+.login-box button.submit-btn span:nth-child(3) {
   bottom: 0;
   right: -100%;
   width: 100%;
@@ -154,16 +168,6 @@
   }
 }
 
-.login-box a span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #fff);
-  animation: btn-anim4 1.5s linear infinite;
-  animation-delay: 1.125s;
-}
-
 @keyframes btn-anim4 {
   0% {
     bottom: -100%;
@@ -173,11 +177,6 @@
   100% {
     bottom: 100%;
   }
-}
-
-.login-box p:last-child {
-  color: #aaa;
-  font-size: 14px;
 }
 
 .login-box a.a2 {
@@ -203,7 +202,7 @@
 .containerReview {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 1.5rem;
   gap: 5rem;
 }
@@ -229,14 +228,7 @@
   justify-content: center;
   align-items: flex-start;
   gap: 0.5rem;
-}
-
-.containerDetail p.description {
-  font-size: 0.9rem;
-  color: #ccc;
-  max-width: 400px;
-  text-align: justify;
-  position: relative;
+  height: 100%;
 }
 
 #titleModif {
@@ -310,4 +302,54 @@
 .button-box a:nth-child(1):hover {
   color: #111010;
   background-color: #ffffff;
+}
+
+/* Icône d'édition image (améliorée) */
+.edit-icon-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid #fff;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  padding: 0;
+}
+.edit-icon-btn:hover,
+.edit-icon-btn:focus-visible {
+  background: #fff;
+  outline: none;
+}
+.edit-icon-btn:hover .edit-icon,
+.edit-icon-btn:focus-visible .edit-icon {
+  color: #000;
+}
+.edit-icon {
+  color: #070404;
+  transition: 0.3s;
+}
+.image-upload-input {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.user-box textarea {
+  min-width: 300px;
+  min-height: 160px;
+  resize: vertical;
+}
+
+.login-box p.ticket-data {
+  font-size: 0.9rem;
+  color: rgb(121, 121, 121);
+  margin: 0.5rem auto;
 }
