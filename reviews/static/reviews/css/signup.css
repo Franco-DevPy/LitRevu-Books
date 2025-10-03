@@ -1,3 +1,21 @@
+.logo {
+  width: 100%;
+  background-color: #010101;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: bold;
+  letter-spacing: 1rem;
+}
+
+.logo p {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem 0;
+  margin: 2rem auto;
+}
+
 .singUpSection {
   width: 100%;
   margin: 3rem auto;

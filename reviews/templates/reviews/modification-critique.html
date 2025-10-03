@@ -1,7 +1,7 @@
 {% extends 'reviews/base.html' %}
 {% load static %}
 
-{% block title %}Connexion / Inscription{% endblock %}
+{% block title %}Modifier une critique{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'reviews/css/modification-critique.css' %}">
@@ -10,112 +10,60 @@
 {% block content %}
 <section class="loginSection ">
     <div class="login-box boxTicket">
-        <p id="responseTo">Modifier critique</p>
+        <p id="responseTo">Modifier la critique du ticket : <strong>{{ ticket.title }}</strong></p>
         <div class="containerReview">
             <div class="user-box imageContainer">
-                <img src="{% static 'images/image.png' %}" alt="Card Image">
-                <iconify-icon class="icon-user" icon="fa6-solid:user-pen" width="34" height="34"></iconify-icon>
+                {% if ticket.image %}
+                <img src="{{ ticket.image.url }}" alt="Image ticket">
+                {% else %}
+                <img src="{% static 'images/image.png' %}" alt="Image ticket">
+                {% endif %}
             </div>
             <div class="containerDetail">
                 <div>
-                    <h3>Nom Livre</h3>
-                    <p>22/11/2025</p>
-                    <p>Auteur</p>
+                    <h3>{{ ticket.title }}</h3>
+                    <p>{{ ticket.time_created|date:"d/m/Y" }}</p>
+                    <p>Auteur : {{ ticket.user.username }}</p>
                 </div>
                 <div>
-                    <p class="description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et nihil
-                        repellendus fuga ipsum.
-                        Sint
-                        dolorem laborum officiis quam excepturi, itaque perspiciatis consectetur ipsam cupiditate
-                        nemo
-                        ad deleniti voluptas corrupti reiciendis, commodi, est expedita voluptatibus? Dolorum
-                        assumenda
-                        molestias id excepturi, modi iusto explicabo cupiditate odit hic nobis suscipit numquam,
-                        quod
-                        reprehenderit.</p>
+                    <p class="description">{{ ticket.description }}</p>
                 </div>
             </div>
-
         </div>
-
     </div>
+
     <div class="login-box">
-        <p>Critique à modifier
-        </p>
-        <form>
-            <div class="user-box">
-                <input required="" name="" type="text">
-                <label>Title</label>
-            </div>
+        <p>Modifier la critique</p>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
 
-            <div class="rating-box">
-                <p class="rating-label">Note</p>
-                <!-- From Uiverse.io by SelfMadeSystem -->
-                <div class="rating">
-                    <input type="radio" id="star-1" name="star-radio" value="star-1">
-                    <label for="star-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path pathLength="360"
-                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                            </path>
-                        </svg>
-                    </label>
-                    <input type="radio" id="star-2" name="star-radio" value="star-1">
-                    <label for="star-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path pathLength="360"
-                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                            </path>
-                        </svg>
-                    </label>
-                    <input type="radio" id="star-3" name="star-radio" value="star-1">
-                    <label for="star-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path pathLength="360"
-                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                            </path>
-                        </svg>
-                    </label>
-                    <input type="radio" id="star-4" name="star-radio" value="star-1">
-                    <label for="star-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path pathLength="360"
-                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                            </path>
-                        </svg>
-                    </label>
-                    <input type="radio" id="star-5" name="star-radio" value="star-1">
-                    <label for="star-5">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path pathLength="360"
-                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                            </path>
-                        </svg>
-                    </label>
-                </div>
+            <div class="user-box">
+                {{ form.headline.errors }}
+                {{ form.headline }}
+                <label for="{{ form.headline.id_for_label }}">Titre</label>
             </div>
 
             <div class="user-box">
-                <textarea required="" name="" rows="3"></textarea>
-                <label></label>
+                {{ form.rating.errors }}
+                {{ form.rating }}
+                <label for="{{ form.rating.id_for_label }}">Note (0 - 5)</label>
+            </div>
+
+            <div class="user-box">
+                {{ form.body.errors }}
+                {{ form.body }}
             </div>
 
             <div class="button-box">
-
-                <a href="#">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <a href="{% url 'feed' %}">
+                    <span></span><span></span><span></span><span></span>
                     Annuler
                 </a>
-                <a href="#">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    Modifer
-                </a>
+                <button type="submit">
+                    <span></span><span></span><span></span><span></span>
+                    Enregistrer
+                </button>
             </div>
         </form>
     </div>

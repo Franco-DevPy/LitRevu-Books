@@ -4,29 +4,56 @@ from .forms import TicketForm, ReviewForm, FollowForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import (
+    require_POST,
+)
 from django.contrib import messages
 
-from .models import Ticket, Review
+
+from .models import Ticket, Review, UserFollows
+from django.contrib.auth import get_user_model
+from django.db import IntegrityError
+from django.db.models import CharField, Value
+from itertools import chain
 
 
 @login_required
 def feed_view(request):
-    tickets = Ticket.objects.all().order_by("-time_created")
-    reviews = Review.objects.all().order_by("-time_created")
 
-    reviewed_ticket_ids = set(
+    followed_ids = list(
+        UserFollows.objects.filter(user=request.user, blocked=False).values_list(
+            "followed_user_id", flat=True
+        )
+    )
+    allowed_user_ids = followed_ids + [request.user.id]
+
+    reviews = (
+        Review.objects.filter(user_id__in=allowed_user_ids)
+        .select_related("user", "ticket")
+        .annotate(content_type=Value("REVIEW", CharField()))
+    )
+
+    tickets = (
+        Ticket.objects.filter(user_id__in=allowed_user_ids)
+        .select_related("user")
+        .annotate(content_type=Value("TICKET", CharField()))
+    )
+
+    posts = sorted(
+        chain(reviews, tickets),
+        key=lambda post: post.time_created,
+        reverse=True,
+    )
+
+    user_reviewed_ticket_ids = set(
         Review.objects.filter(user=request.user).values_list("ticket_id", flat=True)
     )
 
-    return render(
-        request,
-        "reviews/feed.html",
-        {
-            "tickets": tickets,
-            "reviews": reviews,
-            "reviewed_ticket_ids": reviewed_ticket_ids,
-        },
-    )
+    context = {
+        "posts": posts,
+        "user_reviewed_ticket_ids": user_reviewed_ticket_ids,
+    }
+    return render(request, "reviews/feed.html", context)
 
 
 def signup_view(request):
@@ -35,12 +62,12 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
 
-            messages.success(request, "Account created. You are now logged in.")
-            login(request, user)  # loguea inmediatamente
+            messages.success(request, "Compte créé. Vous êtes maintenant connecté.")
+            login(request, user)
             return redirect("feed")
         else:
 
-            messages.error(request, "Please fix the errors below.")
+            messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
     else:
         form = UserCreationForm()
     return render(request, "reviews/signup.html", {"form": form})
@@ -85,18 +112,101 @@ def ticket_create_view(request):
             ticket.save()
             return redirect(reverse("feed"))
         else:
-            print("Errores formulario:", form.errors)
+            print("Erreurs du formulaire :", form.errors)
     else:
         form = TicketForm()
     return render(request, "reviews/ticket_create.html", {"form": form})
 
 
-def ticket_review_create_view(request):
-    return render(request, "reviews/ticket_review_create.html")
-
-
+@login_required
 def abonnements(request):
-    return render(request, "reviews/abonnements.html")
+    form = FollowForm()
+    User = get_user_model()
+    if request.method == "POST":
+        action = request.POST.get("action")
+        target_id = request.POST.get("target_id")
+
+        if action == "follow":
+            form = FollowForm(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data["username"].strip()
+                try:
+                    target = User.objects.get(username__iexact=username)
+                except User.DoesNotExist:
+                    messages.error(request, "Utilisateur introuvable.")
+                else:
+                    if target == request.user:
+                        messages.warning(
+                            request, "Vous ne pouvez pas vous suivre vous-même."
+                        )
+                    else:
+                        try:
+                            rel, created = UserFollows.objects.get_or_create(
+                                user=request.user,
+                                followed_user=target,
+                                defaults={"blocked": False},
+                            )
+                        except IntegrityError:
+                            messages.error(request, "Relation déjà existante.")
+                        else:
+                            if not created and rel.blocked:
+                                rel.blocked = False
+                                rel.save()
+                                messages.info(
+                                    request, "Relation réactivée (déblocage)."
+                                )
+                            elif created:
+                                messages.success(
+                                    request,
+                                    f"Vous suivez maintenant {target.username}.",
+                                )
+                            else:
+                                messages.info(
+                                    request, "Vous suivez déjà cet utilisateur."
+                                )
+
+        else:
+            rel = None
+            if target_id and target_id.isdigit():
+                rel = UserFollows.objects.filter(
+                    id=target_id, user=request.user
+                ).first()
+
+            if action in ("unfollow", "block", "unblock") and not rel:
+                messages.error(request, "Relation introuvable.")
+            else:
+                if action == "unfollow":
+                    rel.delete()
+                    messages.success(request, "Vous ne suivez plus cet utilisateur.")
+                elif action == "block":
+                    rel.blocked = True
+                    rel.save()
+                    messages.success(
+                        request,
+                        "Utilisateur bloqué. Ses publications ne seront plus visibles.",
+                    )
+                elif action == "unblock":
+                    rel.blocked = False
+                    rel.save()
+                    messages.success(request, "Utilisateur débloqué.")
+
+        return redirect("abonnements")
+
+    following_active = UserFollows.objects.filter(
+        user=request.user, blocked=False
+    ).select_related("followed_user")
+
+    # RELACIONES BLOQUEADAS
+    following_blocked = UserFollows.objects.filter(
+        user=request.user, blocked=True
+    ).select_related("followed_user")
+
+    context = {
+        "form": form,
+        "following_active": following_active,
+        "following_blocked": following_blocked,
+    }
+    return render(request, "reviews/abonnements.html", context)
 
 
 def logout_view(request):
@@ -110,21 +220,23 @@ def mypost(request):
     """
     Mostrar los tickets y reviews del usuario conectado.
     """
-    # 1) Obtener tickets del usuario, ordenados por fecha descendente
+    # Obtener tickets del usuario, ordenados por fecha descendente
     tickets = Ticket.objects.filter(user=request.user).order_by("-time_created")
 
-    # 2) Obtener reviews del usuario. select_related('ticket') evita consultas adicionales
+    # Obtener reviews del usuario. select_related('ticket') evita consultas adicionales
     reviews = (
         Review.objects.filter(user=request.user)
         .select_related("ticket")
         .order_by("-time_created")
     )
 
+    # Conjunto de IDs de tickets ya criticados por el usuario (para ocultar el botón 'Ajouter une critique')
+    reviewed_ticket_ids = set(reviews.values_list("ticket_id", flat=True))
+
     context = {
         "tickets": tickets,
         "reviews": reviews,
-        # 'page_tickets': page_tickets,
-        # 'page_reviews': page_reviews,
+        "reviewed_ticket_ids": reviewed_ticket_ids,
     }
     return render(request, "reviews/mesposts.html", context)
 
@@ -133,7 +245,6 @@ def mypost(request):
 def modifierTicket(request, ticket_id):
     ticket = get_object_or_404(Ticket, pk=ticket_id)
 
-    # Sécurité: seul le propriétaire peut éditer
     if ticket.user != request.user:
         messages.error(request, "Vous ne pouvez pas modifier ce ticket.")
         return redirect("feed")
@@ -154,5 +265,58 @@ def modifierTicket(request, ticket_id):
     )
 
 
-def modifierCritique(request):
-    return render(request, "reviews/modification-critique.html")
+@login_required
+def review_edit_view(request, review_id):
+    review = get_object_or_404(
+        Review.objects.select_related("ticket", "user"), pk=review_id
+    )
+    if review.user != request.user:
+        messages.error(request, "Vous ne pouvez pas modifier cette critique.")
+        return redirect("feed")
+
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Critique mise à jour.")
+            return redirect("feed")
+        else:
+            messages.error(request, "Veuillez corriger les erreurs.")
+    else:
+        form = ReviewForm(instance=review)
+
+    context = {
+        "form": form,
+        "review": review,
+        "ticket": review.ticket,
+        "is_edit": True,
+    }
+    return render(request, "reviews/modification-critique.html", context)
+
+
+# BORRAR
+
+
+@login_required
+@require_POST
+def ticket_delete_view(request, ticket_id):
+
+    ticket = get_object_or_404(Ticket, pk=ticket_id)
+    if ticket.user != request.user:
+        messages.error(request, "Vous ne pouvez pas supprimer ce ticket.")
+        return redirect("mesposts")
+    ticket.delete()
+    messages.success(request, "Ticket supprimé.")
+    return redirect("mesposts")
+
+
+@login_required
+@require_POST
+def review_delete_view(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+    if review.user != request.user:
+        messages.error(request, "Vous ne pouvez pas supprimer cette critique.")
+        return redirect("mesposts")
+    review.delete()
+    messages.success(request, "Critique supprimée.")
+    return redirect("mesposts")

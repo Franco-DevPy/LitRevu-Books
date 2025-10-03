@@ -4,6 +4,7 @@ from django.db import models
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.exceptions import ValidationError
 
 
 class Ticket(models.Model):
@@ -37,12 +38,25 @@ class Review(models.Model):
 
 class UserFollows(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="following"
+        settings.AUTH_USER_MODEL, related_name="following", on_delete=models.CASCADE
     )
     followed_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="followed_by"
+        settings.AUTH_USER_MODEL, related_name="followers", on_delete=models.CASCADE
     )
+    blocked = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "followed_user"], name="unique_follow_relation"
+            )
+        ]
+        indexes = [
+            models.Index(fields=["user"]),
+            models.Index(fields=["followed_user"]),
+        ]
 
-        unique_together = ("user", "followed_user")
+    def clean(self):
+        if self.user_id == self.followed_user_id:
+            raise ValidationError("Vous ne pouvez pas vous suivre vous-même.")

@@ -14,38 +14,74 @@
 {% block content %}
 <section class="abonnementsSection">
     <div class="abonnementsSearch">
+        <!-- Formulaire pour suivre un nouvel utilisateur -->
         <div class="searchBar">
-            <input type="text" placeholder="Rechercher un ami...">
-            <button class="searchButton">
-                <iconify-icon width="20" icon="akar-icons:search" class="searchIcon"></iconify-icon>
-            </button>
+            <form method="post" class="followForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="follow">
+                {{ form.username }}
+                <button type="submit" class="searchButton" title="Suivre">
+                    <iconify-icon width="30" icon="flowbite:user-add-solid" class="searchIcon"></iconify-icon>
+                </button>
+            </form>
         </div>
+        <!-- Zone d'affichage pour de futurs résultats/suggestions (placeholder conservé) -->
         <div class="searchResults">
-            <div class="abonnementsCards">
-                <h3>Résultats de la recherche</h3>
-                <div class="abonnementsItem">
-                    <p>severine123
-                    </p>
-                    <button class="followButton">abonner</button>
-                </div>
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
             </div>
+            {% endif %}
         </div>
     </div>
+    <!-- Liste des abonnements actifs -->
     <div class="abonnementsCards">
-        <h3>Abonnements</h3>
+        <h3>Abonnements actifs</h3>
+        {% for rel in following_active %}
         <div class="abonnementsItem">
-            <p>severine123
-            </p>
-            <button class="followButton">Désabonner</button>
+            <p>{{ rel.followed_user.username }}</p>
+            <form method="post" class="inlineForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="unfollow">
+                <input type="hidden" name="target_id" value="{{ rel.id }}">
+                <button type="submit" class="followButton" title="Désabonner">Désabonner</button>
+            </form>
+            <form method="post" class="inlineForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="block">
+                <input type="hidden" name="target_id" value="{{ rel.id }}">
+                <button type="submit" class="followButton danger" title="Bloquer">Bloquer</button>
+            </form>
         </div>
+        {% empty %}
+        <p class="empty">Vous ne suivez encore personne.</p>
+        {% endfor %}
     </div>
-    <div class="abonnesCards">
-        <h3>Abonnés</h3>
-        <div class="abonnesItem">
 
-            <p>jean_5679
-            </p>
+    <!-- Liste des utilisateurs bloqués -->
+    <div class="abonnesCards">
+        <h3>Utilisateurs bloqués</h3>
+        {% for rel in following_blocked %}
+        <div class="abonnesItem">
+            <p>{{ rel.followed_user.username }}</p>
+            <form method="post" class="inlineForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="unblock">
+                <input type="hidden" name="target_id" value="{{ rel.id }}">
+                <button type="submit" class="followButton" title="Débloquer">Débloquer</button>
+            </form>
+            <form method="post" class="inlineForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="unfollow">
+                <input type="hidden" name="target_id" value="{{ rel.id }}">
+                <button type="submit" class="followButton danger" title="Supprimer la relation">Supprimer</button>
+            </form>
         </div>
+        {% empty %}
+        <p class="empty">Aucun utilisateur bloqué.</p>
+        {% endfor %}
     </div>
 
 </section>
