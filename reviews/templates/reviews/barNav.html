@@ -1,47 +1,49 @@
 {% with current=request.resolver_match.url_name %}
 <div class="input">
         {% if user.is_authenticated %}
-        <a class="value {% if current == 'feed' %}active{% endif %}" href="{% url 'feed' %}">
+        <a title="Fil d'actualités" aria-label="Fil d'actualités"
+                class="value {% if current == 'feed' %}active{% endif %}" href="{% url 'feed' %}">
                 <iconify-icon class="icon-feed" icon="mdi-home" width="30" height="30"></iconify-icon>
         </a>
 
-        <a class="value {% if current == 'ticket_create' %}active{% endif %}" href="{% url 'ticket_create' %}">
+        <a title="Créer un ticket" aria-label="Créer un ticket"
+                class="value {% if current == 'ticket_create' %}active{% endif %}" href="{% url 'ticket_create' %}">
                 <iconify-icon class="icon-feed" icon="icon-park-outline:doc-add" width="30" height="30"></iconify-icon>
         </a>
-        {% comment %}
-        Ancien lien combiné création ticket + critique supprimé.
-        <a class="value" href="#">
+
+        <a title="Créer un ticket + critique" aria-label="Créer un ticket et une critique"
+                class="value {% if current == 'ticket_review_create' %}active{% endif %}"
+                href="{% url 'ticket_review_create' %}">
                 <iconify-icon class="icon-feed" icon="fluent:book-add-20-filled" width="30" height="30"></iconify-icon>
         </a>
-        {% endcomment %}
-        <a class="value {% if current == 'abonnements' %}active{% endif %}" href="{% url 'abonnements' %}">
+
+        <a title="Gérer mes abonnements" aria-label="Gérer mes abonnements"
+                class="value {% if current == 'abonnements' %}active{% endif %}" href="{% url 'abonnements' %}">
                 <iconify-icon class="icon-feed" icon="mingcute:user-add-fill" width="30" height="30"></iconify-icon>
         </a>
-        <a class="value {% if current == 'mesposts' %}active{% endif %}" href="{% url 'mesposts' %}">
+
+        <a title="Mes publications" aria-label="Mes publications"
+                class="value {% if current == 'mesposts' %}active{% endif %}" href="{% url 'mesposts' %}">
                 <iconify-icon class="icon-feed" icon="fluent:box-48-filled" width="30" height="30"></iconify-icon>
         </a>
-        {% comment %}
-        Ancien lien vers une vue 'modification-critique' supprimée. Conserver comme référence éventuelle :
-        <a class="value {% if current == 'modification-critique' %}active{% endif %}" href="#">
-                <iconify-icon class="icon-feed" icon="ic:round-edit-note" width="30" height="30"></iconify-icon>
-        </a>
-        {% endcomment %}
 
+        <span class="value user-name" style="cursor:default;" title="Utilisateur connecté">
+                <iconify-icon class="icon-feed" icon="fa7-solid:user" width="30" height="30"></iconify-icon>
+                {{user.username|upper }}
+        </span>
 
-        <span class="value user-name" style="cursor:default;"> <iconify-icon class="icon-feed" icon="fa7-solid:user"
-                        width="30" height="30"></iconify-icon>{{ user.username|upper }}</span>
-
-        <a class="value logout-btn" href="{% url 'logout' %}">
+        <a title="Se déconnecter" aria-label="Se déconnecter" class="value logout-btn" href="{% url 'logout' %}">
                 <iconify-icon class="icon-feed" icon="el:off" width="20" height="20"></iconify-icon>
         </a>
         {% else %}
-        <a class="value {% if current == 'accueil' %}active{% endif %}" href="{% url 'accueil' %}">
+        <a title="Accueil" aria-label="Accueil" class="value {% if current == 'accueil' %}active{% endif %}"
+                href="{% url 'accueil' %}">
                 <iconify-icon class="icon-feed" icon="wpf:connected" width="30" height="30"></iconify-icon>
         </a>
-        <a class="value {% if current == 'signup' %}active{% endif %}" href="{% url 'signup' %}">
+        <a title="Créer un compte" aria-label="Créer un compte"
+                class="value {% if current == 'signup' %}active{% endif %}" href="{% url 'signup' %}">
                 <iconify-icon class="icon-feed" icon="mdi:account-edit" width="30" height="30"></iconify-icon>
         </a>
-
         {% endif %}
 </div>
 {% endwith %}

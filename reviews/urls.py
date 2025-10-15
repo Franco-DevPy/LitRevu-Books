@@ -18,6 +18,11 @@ urlpatterns = [
         name="review_create",
     ),
     path("tickets/new/", views.ticket_create_view, name="ticket_create"),
+    path(
+        "tickets/new-with-review/",
+        views.ticket_review_create_view,
+        name="ticket_review_create",
+    ),
     path("abonnements/", views.abonnements, name="abonnements"),
     path("mesposts/", views.mypost, name="mesposts"),
     # Edition d'un ticket (une seule URL, évite duplication)

@@ -21,8 +21,6 @@
                 <div class="imageContainer">
                     {% if ticket.image %}
                     <img src="{{ ticket.image.url }}" alt="Image ticket">
-                    {% else %}
-                    <img src="{% static 'images/image.png' %}" alt="Image ticket">
                     {% endif %}
                 </div>
 
@@ -71,8 +69,6 @@
                 <div class="imageContainer">
                     {% if review.ticket.image %}
                     <img src="{{ review.ticket.image.url }}" alt="Image ticket">
-                    {% else %}
-                    <img src="{% static 'images/image.png' %}" alt="Image ticket">
                     {% endif %}
                 </div>
 

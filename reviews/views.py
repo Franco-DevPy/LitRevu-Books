@@ -320,3 +320,48 @@ def review_delete_view(request, review_id):
     review.delete()
     messages.success(request, "Critique supprimée.")
     return redirect("mesposts")
+
+
+# ...existing code...
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.db import transaction
+
+# Importe tes formulaires réels
+# from .forms import TicketForm, ReviewForm
+
+
+@login_required
+def ticket_review_create_view(request):
+    """
+    Crée simultanément un ticket et sa critique.
+    """
+    if request.method == "POST":
+        ticket_form = TicketForm(request.POST, request.FILES, prefix="ticket")
+        review_form = ReviewForm(request.POST, prefix="review")
+        if ticket_form.is_valid() and review_form.is_valid():
+            ticket = ticket_form.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
+
+            review = review_form.save(commit=False)
+            review.ticket = ticket
+            review.user = request.user
+            review.save()
+
+            messages.success(request, "Ticket + critique créés.")
+            return redirect("feed")
+        else:
+            messages.error(request, "Corrigez les erreurs des deux formulaires.")
+    else:
+        ticket_form = TicketForm(prefix="ticket")
+        review_form = ReviewForm(prefix="review")
+
+    return render(
+        request,
+        "reviews/ticket_review_create.html",
+        {
+            "ticket_form": ticket_form,
+            "review_form": review_form,
+        },
+    )

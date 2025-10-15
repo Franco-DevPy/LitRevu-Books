@@ -17,8 +17,6 @@
             <div class="user-box imageContainer">
                 {% if ticket.image %}
                 <img src="{{ ticket.image.url }}" alt="Image ticket">
-                {% else %}
-                <img src="{% static 'images/image.png' %}" alt="Image ticket">
                 {% endif %}
             </div>
             <div class="containerDetail">
@@ -48,7 +46,7 @@
                 <div class="user-box">
                     {{ form.rating.errors }}
                     {{ form.rating }}
-                    <label for="{{ form.rating.id_for_label }}">Note (0 - 5)</label>
+                    <label for="{{ form.rating.id_for_label }}">Note (1 - 5)</label>
                 </div>
 
                 <div class="user-box">

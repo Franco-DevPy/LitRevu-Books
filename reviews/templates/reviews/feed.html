@@ -25,76 +25,80 @@
                     {# Nouvelle boucle sur posts unifiés (tickets + reviews) #}
                     {% if posts %}
                     {% for post in posts %}
-                    {% if post.content_type == 'TICKET' %}
-                    <div class="cardSingle">
-                        <div class="textBox">
-                            <h2>
-                                <iconify-icon class="icon-title" icon="fluent:book-add-20-filled" width="30"
-                                    height="30"></iconify-icon>
-                                {{ post.title }}
-                            </h2>
-                            <p>{{ post.description }}</p>
-                            <div class="cardContainer">
-                                <div class="textContainer">
-                                    <div class="textContent">
-                                        <p>{{ post.user.username }}</p>
-                                        <span class="placeholder-rating">&nbsp;</span> {# espace pour alignement #}
-                                    </div>
-                                    <div class="textContent">
-                                        <p>{{ post.time_created|date:"d/m/Y" }}</p>
-                                        {% if post.id in user_reviewed_ticket_ids %}
-                                        <span class="already-reviewed" title="Vous avez déjà rédigé une critique.">
-                                            <iconify-icon icon="mdi:check-circle" width="22" height="22"></iconify-icon>
-                                        </span>
-                                        {% else %}
-                                        {% if request.user != post.user %}
-                                        <a href="{% url 'review_create' post.id %}" class="has-tooltip"
-                                            data-tooltip="Ajouter une critique" aria-label="Ajouter une critique">
-                                            <iconify-icon icon="f7:plus-app-fill" width="24" height="24"></iconify-icon>
-                                        </a>
-                                        {% endif %}
-                                        {% endif %}
+                    <div class="post-item">
+                        {% if post.content_type == 'TICKET' %}
+                        <div class="cardSingle">
+                            <div class="textBox">
+                                <h2>
+                                    <iconify-icon class="icon-title" icon="fluent:book-add-20-filled" width="30"
+                                        height="30"></iconify-icon>
+                                    {{ post.title }}
+                                </h2>
+                                <p>{{ post.description }}</p>
+                                <div class="cardContainer">
+                                    <div class="textContainer">
+                                        <div class="textContent">
+                                            <p>{{ post.user.username }}</p>
+                                            <span class="placeholder-rating">&nbsp;</span> {# espace pour alignement #}
+                                        </div>
+                                        <div class="textContent">
+                                            <p>{{ post.time_created|date:"d/m/Y" }}</p>
+                                            {% if post.id in user_reviewed_ticket_ids %}
+                                            <span class="already-reviewed" title="Vous avez déjà rédigé une critique.">
+                                                <iconify-icon icon="mdi:check-circle" width="22"
+                                                    height="22"></iconify-icon>
+                                            </span>
+                                            {% else %}
+                                            {% if request.user != post.user %}
+                                            <a href="{% url 'review_create' post.id %}" class="has-tooltip"
+                                                data-tooltip="Ajouter une critique" aria-label="Ajouter une critique">
+                                                <iconify-icon icon="f7:plus-app-fill" width="24"
+                                                    height="24"></iconify-icon>
+                                            </a>
+                                            {% endif %}
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="imageContainer">
-                            {% if post.image %}
-                            <img src="{{ post.image.url }}" alt="Card Image">
-                            {% else %}
-                            <img src="{% static 'images/image.png' %}" alt="Card Image">
-                            {% endif %}
-                            {% if request.user == post.user %}
-                            <a href="{% url 'modification-ticket' post.id %}">
-                                <iconify-icon class="icon-user" icon="fa6-solid:user-pen" width="34"
-                                    height="34"></iconify-icon>
-                            </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% elif post.content_type == 'REVIEW' %}
-                    <div class="reviewsCards">
-                        <div class="reviewSingle">
-                            <div class="reviewDetails">
-                                <p class="review-headline"><strong>{{ post.headline }}</strong></p>
-                                <p class="review-meta">Par {{ post.user.username }} – {{ post.time_created|date:"d/m/Y"
-                                    }} – Note : {{ post.rating }}/5</p>
-                                <p class="review-body">{{ post.body|default:"(Pas de contenu)" }}</p>
-                                <p class="review-related-ticket">Ticket : {{ post.ticket.title }}</p>
-                                {% if post.user_id == request.user.id %}
-                                <p class="review-actions">
-                                    <a href="{% url 'review_edit' post.id %}" class="edit-review-link"
-                                        title="Modifier cette critique">
-                                        <iconify-icon icon="fa6-solid:pen-to-square" width="20"
-                                            height="20"></iconify-icon>
-                                        Modifier
-                                    </a>
-                                </p>
+                            <div class="imageContainer">
+                                {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="Image du ticket">
+                                {% endif %}
+                                {% if request.user == post.user %}
+                                <a href="{% url 'modification-ticket' post.id %}">
+                                    <iconify-icon class="icon-user" icon="fa6-solid:user-pen" width="34"
+                                        height="34"></iconify-icon>
+                                </a>
                                 {% endif %}
                             </div>
                         </div>
-                    </div>
-                    {% endif %}
+                        {% elif post.content_type == 'REVIEW' %}
+                        <div class="reviewsCards">
+                            <div class="reviewSingle">
+                                <div class="reviewDetails">
+                                    <p class="review-headline"><strong>{{ post.headline }}</strong></p>
+                                    <p class="review-meta">Par {{ post.user.username }} – {{
+                                        post.time_created|date:"d/m/Y"
+                                        }} – Note : {{ post.rating }}/5</p>
+                                    <p class="review-body">{{ post.body|default:"(Pas de contenu)" }}</p>
+                                    <p class="review-related-ticket">Ticket : {{ post.ticket.title }}</p>
+                                    {% if post.user_id == request.user.id %}
+                                    <p class="review-actions">
+                                        <a href="{% url 'review_edit' post.id %}" class="edit-review-link"
+                                            title="Modifier cette critique">
+                                            <iconify-icon icon="fa6-solid:pen-to-square" width="20"
+                                                height="20"></iconify-icon>
+                                            Modifier
+                                        </a>
+                                    </p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <span class="separator-line" aria-hidden="true"></span>
+                    </div> {# /post-item #}
                     {% endfor %}
                     {% else %}
                     <p class="no-ticket-message">Aucune publication pour le moment.</p>

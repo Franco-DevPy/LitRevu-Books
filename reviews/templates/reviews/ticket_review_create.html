@@ -1,2 +1,95 @@
-{# Template supprimé car fonctionnalité remplacée. Conserver fichier vide pour éviter erreurs d'inclusion accidentelles.
-#}
+{% extends 'reviews/base.html' %}
+{% load static %}
+
+{% block title %}Créer Ticket + Critique{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'reviews/css/ticket_review_create.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="loginSection">
+    <div class="login-box">
+        <p id="title">Créer Ticket</p>
+
+        <form method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+
+            {# Erreurs globales #}
+            {% if ticket_form.non_field_errors %}
+            <div class="field-error">{{ ticket_form.non_field_errors }}</div>
+            {% endif %}
+            {% if review_form.non_field_errors %}
+            <div class="field-error">{{ review_form.non_field_errors }}</div>
+            {% endif %}
+
+            <!-- TICKET -->
+            <div class="user-box">
+                {{ ticket_form.title }}
+                <label for="{{ ticket_form.title.id_for_label }}">Livre / Article</label>
+                {% if ticket_form.title.errors %}
+                <div class="field-error">{{ ticket_form.title.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="user-box box-file">
+                {{ ticket_form.image }}
+                <label for="{{ ticket_form.image.id_for_label }}">Image</label>
+                {% if ticket_form.image.errors %}
+                <div class="field-error">{{ ticket_form.image.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="user-box">
+                {{ ticket_form.description }}
+                <label for="{{ ticket_form.description.id_for_label }}">Description</label>
+                {% if ticket_form.description.errors %}
+                <div class="field-error">{{ ticket_form.description.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="user-box">
+                <p id="title2" class="reviewTitle">Critique</p>
+            </div>
+
+            <!-- REVIEW -->
+            <div class="user-box">
+                {{ review_form.headline }}
+                <label for="{{ review_form.headline.id_for_label }}">Titre critique</label>
+                {% if review_form.headline.errors %}
+                <div class="field-error">{{ review_form.headline.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="rating-box">
+                <p class="rating-label">Note (1-5)</p>
+                <div class="numeric-rating">
+                    {{ review_form.rating }}
+                    {% if review_form.rating.errors %}
+                    <div class="field-error">{{ review_form.rating.errors.0 }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="user-box">
+                {{ review_form.body }}
+                <label for="{{ review_form.body.id_for_label }}">Votre critique</label>
+                {% if review_form.body.errors %}
+                <div class="field-error">{{ review_form.body.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="button-box">
+                <a href="{% url 'feed' %}">
+                    <span></span><span></span><span></span><span></span>
+                    Annuler
+                </a>
+                <button type="submit" class="btn-submit-like">
+                    <span></span><span></span><span></span><span></span>
+                    Enregistrer
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -30,6 +30,11 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ["headline", "body", "rating"]
+        widgets = {
+            "rating": forms.NumberInput(attrs={"min": 1, "max": 5, "step": 1}),
+            "headline": forms.TextInput(attrs={"required": True}),
+            "body": forms.Textarea(attrs={"rows": 4}),
+        }
 
 
 class FollowForm(forms.Form):

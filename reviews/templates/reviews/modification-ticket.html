@@ -21,7 +21,7 @@
                     {% if ticket.image %}
                     <img src="{{ ticket.image.url }}" alt="Image actuelle du ticket" id="ticket-current-image">
                     {% else %}
-                    <img src="{% static 'images/image.png' %}" alt="Image par défaut" id="ticket-current-image">
+                    <img src="" alt="Aucune image" id="ticket-current-image" style="display:none;">
                     {% endif %}
 
                     <!-- Bouton (icône) qui déclenche le file input -->
@@ -87,6 +87,9 @@
                 if (file) {
                     const url = URL.createObjectURL(file);
                     img.src = url;
+                    if (img.style.display === 'none') {
+                        img.style.display = 'block';
+                    }
                 }
             });
         }
