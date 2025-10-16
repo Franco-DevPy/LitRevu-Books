@@ -9,30 +9,13 @@
 }
 
 .cards {
-  border-bottom: 2px solid rgb(204, 204, 204);
-  padding: 0 0 3rem 0;
+  /* Ancien style de bordure supprimé pour utiliser des séparateurs individuels */
+  padding: 0 0 2rem 0;
   position: relative;
-}
-
-.cards::after {
-  content: "";
-  display: block;
-  width: 10px;
-  height: 10px;
-  background: white;
-  position: absolute;
-  bottom: -6px;
-}
-
-.cards::before {
-  content: "";
-  display: block;
-  width: 10px;
-  height: 10px;
-  background: white;
-  position: absolute;
-  bottom: -6px;
-  right: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem; /* espacement visuel entre blocs */
 }
 
 .CardContainer {
@@ -72,6 +55,50 @@
   flex-direction: column;
   gap: 2rem;
 }
+
+/* ===============  Séparation entre chaque publication (ticket ou review)  ================= */
+.post-item {
+  position: relative;
+  width: 100%;
+  padding-bottom: 0.75rem; /* espace avant la ligne */
+}
+
+/* Ligne avec deux carrés décoratifs (héritée de l'ancien style) */
+.post-item:not(:last-child) {
+  border-bottom: 2px solid rgb(204, 204, 204);
+  margin-bottom: 2.75rem; /* espace sous la bordure avant l'élément suivant */
+  padding-bottom: 1.75rem; /* espace intérieur */
+}
+
+.post-item:not(:last-child)::after,
+.post-item:not(:last-child)::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: #0c0f16; /* couleur de fond du conteneur pour créer l'effet de "découpe" */
+  position: absolute;
+  bottom: -6px;
+  z-index: 2;
+  box-shadow: 0 0 0 1px rgb(204, 204, 204); /* fin contour pour cohérence si souhaité */
+  border-radius: 2px;
+}
+
+.post-item:not(:last-child)::after {
+  left: 0;
+}
+.post-item:not(:last-child)::before {
+  right: 0;
+}
+
+/* Variante : si tu veux accentuer quand un ticket arrive après une review (groupe review+ticket) */
+
+/* Masquer l'ancien séparateur HTML s'il est encore rendu */
+.separator-line {
+  display: none !important;
+}
+
+/* ==================  Fin séparateurs  ================== */
 .Btn-ticket {
   background: rgba(0, 0, 0, 0.9);
 

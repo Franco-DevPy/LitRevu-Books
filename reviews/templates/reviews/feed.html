@@ -25,7 +25,9 @@
                     {# Nouvelle boucle sur posts unifiés (tickets + reviews) #}
                     {% if posts %}
                     {% for post in posts %}
-                    <div class="post-item">
+                    {# Ajout de classes contextuelles pour stylisation des séparateurs #}
+                    <div
+                        class="post-item {% if post.content_type == 'TICKET' %}has-ticket{% else %}has-review{% endif %}">
                         {% if post.content_type == 'TICKET' %}
                         <div class="cardSingle">
                             <div class="textBox">
@@ -97,7 +99,6 @@
                             </div>
                         </div>
                         {% endif %}
-                        <span class="separator-line" aria-hidden="true"></span>
                     </div> {# /post-item #}
                     {% endfor %}
                     {% else %}

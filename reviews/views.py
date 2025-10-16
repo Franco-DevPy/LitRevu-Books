@@ -9,7 +9,6 @@ from django.views.decorators.http import (
 )
 from django.contrib import messages
 
-
 from .models import Ticket, Review, UserFollows
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
@@ -320,15 +319,6 @@ def review_delete_view(request, review_id):
     review.delete()
     messages.success(request, "Critique supprimée.")
     return redirect("mesposts")
-
-
-# ...existing code...
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.db import transaction
-
-# Importe tes formulaires réels
-# from .forms import TicketForm, ReviewForm
 
 
 @login_required
