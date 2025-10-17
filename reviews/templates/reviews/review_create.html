@@ -16,7 +16,8 @@
         <div class="containerReview">
             <div class="user-box imageContainer">
                 {% if ticket.image %}
-                <img src="{{ ticket.image.url }}" alt="Image ticket">
+                <img src="{{ ticket.image.url }}"
+                    alt="Illustration associée au ticket « {{ ticket.title|default:'(Sans titre)' }} »">
                 {% endif %}
             </div>
             <div class="containerDetail">

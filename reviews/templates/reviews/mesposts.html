@@ -20,7 +20,8 @@
                 <!-- Image / visuel du ticket -->
                 <div class="imageContainer">
                     {% if ticket.image %}
-                    <img src="{{ ticket.image.url }}" alt="Image ticket">
+                    <img src="{{ ticket.image.url }}"
+                        alt="Illustration du ticket « {{ ticket.title|default:'(Sans titre)' }} »">
                     {% endif %}
                 </div>
 
@@ -68,7 +69,8 @@
                 <!-- Image du ticket associé -->
                 <div class="imageContainer">
                     {% if review.ticket.image %}
-                    <img src="{{ review.ticket.image.url }}" alt="Image ticket">
+                    <img src="{{ review.ticket.image.url }}"
+                        alt="Illustration du ticket « {{ review.ticket.title|default:'(Sans titre)' }} » liée à votre critique « {{ review.headline|default:'(Sans titre)' }} »">
                     {% endif %}
                 </div>
 

@@ -19,9 +19,12 @@
             <div class="containerReview">
                 <div class="user-box imageContainer">
                     {% if ticket.image %}
-                    <img src="{{ ticket.image.url }}" alt="Image actuelle du ticket" id="ticket-current-image">
+                    <img src="{{ ticket.image.url }}"
+                        alt="Image actuelle du ticket « {{ ticket.title|default:'(Sans titre)' }} »"
+                        id="ticket-current-image">
                     {% else %}
-                    <img src="" alt="Aucune image" id="ticket-current-image" style="display:none;">
+                    <img src="" alt="(Aucune image fournie pour ce ticket)" id="ticket-current-image"
+                        style="display:none;">
                     {% endif %}
 
                     <!-- Bouton (icône) qui déclenche le file input -->

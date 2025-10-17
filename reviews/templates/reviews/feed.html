@@ -65,7 +65,8 @@
                             </div>
                             <div class="imageContainer">
                                 {% if post.image %}
-                                <img src="{{ post.image.url }}" alt="Image du ticket">
+                                <img src="{{ post.image.url }}"
+                                    alt="Illustration du ticket « {{ post.title|default:'(Sans titre)' }} »">
                                 {% endif %}
                                 {% if request.user == post.user %}
                                 <a href="{% url 'modification-ticket' post.id %}">
