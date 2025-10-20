@@ -323,6 +323,100 @@
   }
 }
 
+/* Animations pour les bordures (réutilisées des autres pages) */
+@keyframes btn-anim1 {
+  0% { left: -100%; }
+  50%,100% { left: 100%; }
+}
+@keyframes btn-anim2 {
+  0% { top: -100%; }
+  50%,100% { top: 100%; }
+}
+@keyframes btn-anim3 {
+  0% { right: -100%; }
+  50%,100% { right: 100%; }
+}
+@keyframes btn-anim4 {
+  0% { bottom: -100%; }
+  50%,100% { bottom: 100%; }
+}
+
+/* Bouton "Modifier" stylisé */
+.btn-feed-edit {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 10px 16px;
+  font-weight: bold;
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.4s;
+  letter-spacing: 2px;
+  background: #2f2f2f;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-feed-edit:hover,
+.btn-feed-edit:focus-visible {
+  background: #444;
+  color: #fff;
+  text-decoration: none;
+  outline: none;
+}
+
+.btn-feed-edit span:not(.edit-text) {
+  position: absolute;
+  display: block;
+}
+
+.btn-feed-edit span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fff);
+  animation: btn-anim1 1.5s linear infinite;
+}
+
+.btn-feed-edit span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #fff);
+  animation: btn-anim2 1.5s linear infinite;
+  animation-delay: 0.375s;
+}
+
+.btn-feed-edit span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #fff);
+  animation: btn-anim3 1.5s linear infinite;
+  animation-delay: 0.75s;
+}
+
+.btn-feed-edit span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #fff);
+  animation: btn-anim4 1.5s linear infinite;
+  animation-delay: 1.125s;
+}
+
+.btn-feed-edit iconify-icon { color: #fff; }
+.btn-feed-edit .edit-text { position: relative; top: 1px; }
+
 .no-tickets-message {
   color: rgb(255, 45, 45);
   font-size: 1.2rem;

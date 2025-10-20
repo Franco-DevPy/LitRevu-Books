@@ -39,8 +39,8 @@
                                 <div class="cardContainer">
                                     <div class="textContainer">
                                         <div class="textContent">
-                                            <p>{{ post.user.username }}</p>
-                                            <span class="placeholder-rating">&nbsp;</span> {# espace pour alignement #}
+                                            <p>Auteur: {{ post.user.username|upper }}</p>
+                                            <!-- <span class="placeholder-rating">&nbsp;</span>  -->
                                         </div>
                                         <div class="textContent">
                                             <p>{{ post.time_created|date:"d/m/Y" }}</p>
@@ -50,13 +50,11 @@
                                                     height="22"></iconify-icon>
                                             </span>
                                             {% else %}
-                                            {% if request.user != post.user %}
                                             <a href="{% url 'review_create' post.id %}" class="has-tooltip"
                                                 data-tooltip="Ajouter une critique" aria-label="Ajouter une critique">
                                                 <iconify-icon icon="f7:plus-app-fill" width="24"
                                                     height="24"></iconify-icon>
                                             </a>
-                                            {% endif %}
                                             {% endif %}
                                         </div>
                                     </div>
