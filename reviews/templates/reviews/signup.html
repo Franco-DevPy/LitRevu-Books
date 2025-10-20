@@ -1,19 +1,23 @@
 {% extends 'reviews/base.html' %}
 {% load static %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Inscription - LitReview{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'reviews/css/signup.css' %}">
 {% endblock %}
 
+{% block page_heading %}
+<h1 class="visually-hidden">Créer un compte utilisateur LitReview</h1>
+{% endblock %}
+
 {% block content %}
-<section class="loginSection"> {# usa loginSection para que el CSS coincida #}
-    <div class="logo">
+<section class="loginSection" aria-labelledby="signup-heading">
+    <div class="logo" aria-hidden="true">
         <p>LIT-Review</p>
     </div>
     <div class="login-box">
-        <p>Inscrivez-vous</p>
+        <h2 id="signup-heading">Inscription</h2>
 
         <form method="post" action="" novalidate enctype="multipart/form-data">
             {% csrf_token %}
@@ -21,7 +25,7 @@
                 {{ form.username }}
                 <label for="{{ form.username.id_for_label }}">Nom</label>
                 {% if form.username.errors %}
-                <div class="field-error">{{ form.username.errors|striptags }}</div>
+                <div class="field-error" role="alert">{{ form.username.errors|striptags }}</div>
                 {% endif %}
             </div>
 
@@ -29,7 +33,7 @@
                 {{ form.password1 }}
                 <label for="{{ form.password1.id_for_label }}">Mot de passe</label>
                 {% if form.password1.errors %}
-                <div class="field-error">{{ form.password1.errors|striptags }}</div>
+                <div class="field-error" role="alert">{{ form.password1.errors|striptags }}</div>
                 {% endif %}
             </div>
 
@@ -37,12 +41,12 @@
                 {{ form.password2 }}
                 <label for="{{ form.password2.id_for_label }}">Confirmer le mot de passe</label>
                 {% if form.password2.errors %}
-                <div class="field-error">{{ form.password2.errors|striptags }}</div>
+                <div class="field-error" role="alert">{{ form.password2.errors|striptags }}</div>
                 {% endif %}
             </div>
 
             {% if form.non_field_errors %}
-            <div class="field-error">{{ form.non_field_errors|striptags }}</div>
+            <div class="field-error" role="alert">{{ form.non_field_errors|striptags }}</div>
             {% endif %}
 
             <div class="buttons">
@@ -59,4 +63,14 @@
         </form>
     </div>
 </section>
+<style>
+    .visually-hidden {
+        position: absolute !important;
+        left: -10000px !important;
+        top: auto !important;
+        width: 1px !important;
+        height: 1px !important;
+        overflow: hidden !important;
+    }
+</style>
 {% endblock %}

@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LitReview - Application de critiques de livres{% endblock %}</title>
     {# Ajout d'un cache-buster en dev pour éviter le cache navigateur #}
     {% if debug %}
     <link rel="stylesheet" href="{% static 'reviews/css/styles.css' %}?v={% now 'U' %}">
@@ -24,6 +25,7 @@
         {% include 'reviews/barNav.html' %}
     </header>
     <main>
+        {% block page_heading %}{% endblock %}
         {# Messages flash (succès / erreurs) #}
         {% if messages %}
         <ul class="messages" style="list-style:none;padding:0;margin:1rem 0;">

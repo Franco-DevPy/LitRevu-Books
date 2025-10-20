@@ -131,7 +131,8 @@
   margin-bottom: 10rem;
 }
 
-.cardTicket h3 {
+/* Titre principal (h1) */
+.cardTicket h1#last-posts-heading {
   display: flex;
   align-items: flex-start;
   justify-content: center;

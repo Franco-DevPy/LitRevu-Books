@@ -1,7 +1,7 @@
 {% extends 'reviews/base.html' %}
 {% load static %}
 
-
+{% block title %}Dernières publications - LitReview{% endblock %}
 
 {% block extra_css %}
 {% if debug %}
@@ -11,16 +11,15 @@
 {% endif %}
 {% endblock %}
 
-{% block content %}
-<section class="feedSection">
+{% block page_heading %}{% endblock %}
 
+{% block content %}
+<section class="feedSection" aria-labelledby="last-posts-heading">
 
     <div class="cardAllContent">
-
-
         <div class="cardTicket friendTicket">
             <div class="CardContainer">
-                <h3>Dernières publications</h3>
+                <h1 id="last-posts-heading">Dernières publications</h1>
                 <div class="cards">
                     {# Nouvelle boucle sur posts unifiés (tickets + reviews) #}
                     {% if posts %}
@@ -81,9 +80,12 @@
                             <div class="reviewSingle">
                                 <div class="reviewDetails">
                                     <p class="review-headline"><strong>{{ post.headline }}</strong></p>
-                                    <p class="review-meta">Par {{ post.user.username }} – {{
-                                        post.time_created|date:"d/m/Y"
-                                        }} – Note : {{ post.rating }}/5</p>
+                                    <p class="review-meta">Par {{ post.user.username|upper }}
+                                        <br>
+                                        {{post.time_created|date:"d/m/Y"}}
+                                        <br>
+                                        Note : {{ post.rating }}/5
+                                    </p>
                                     <p class="review-body">{{ post.body|default:"(Pas de contenu)" }}</p>
                                     <p class="review-related-ticket">Ticket : {{ post.ticket.title }}</p>
                                     {% if post.user_id == request.user.id %}

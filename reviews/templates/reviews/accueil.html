@@ -1,43 +1,58 @@
 {% extends 'reviews/base.html' %}
 {% load static %}
 
-{% block title %}Connexion / Inscription{% endblock %}
+{% block title %}Connexion - LitReview{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'reviews/css/accueil.css' %}">
 {% endblock %}
 
+{% block page_heading %}
+<h1 class="visually-hidden">Connexion à l'application LitReview</h1>
+{% endblock %}
+
 {% block content %}
-<section class="loginSection">
-    <div class="logo">
+<section class="loginSection" aria-labelledby="connexion-heading">
+    <div class="logo" aria-hidden="true">
         <p>LIT-Review</p>
     </div>
     <div class="login-box">
-        <p>Connexion</p>
-        <form method="post" action="{% url 'accueil' %}">
+        <h2 id="connexion-heading">Connexion</h2>
+        <form method="post" action="{% url 'accueil' %}" novalidate>
             {% csrf_token %}
             {% if form and form.errors %}
-            <div class="errors">Identifiants invalides. Veuillez réessayer.</div>
+            <div class="errors" role="alert">Identifiants invalides. Veuillez réessayer.</div>
             {% endif %}
             <div class="user-box">
                 <input required name="username" type="text" autocomplete="username" autofocus
-                    value="{{ form.username.value|default:'' }}">
-                <label>Nom d'utilisateur</label>
+                    value="{{ form.username.value|default:'' }}" aria-describedby="username-help">
+                <label for="id_username">Nom d'utilisateur</label>
             </div>
             <div class="user-box">
                 <input required name="password" type="password" autocomplete="current-password">
-                <label>Mot de passe</label>
+                <label for="id_password">Mot de passe</label>
             </div>
             <button type="submit" class="submit-anchor-like">
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
-                Connexion
+                Se connecter
             </button>
         </form>
-        <p id="signupcontent">Inscrivez-vous maintenant<a href="{% url 'signup'%}" class="a2">S'inscrire!</a></p>
+        <p id="signupcontent">Pas encore de compte ? <a href="{% url 'signup'%}" class="a2">S'inscrire</a></p>
     </div>
 
 </section>
+<style>
+    /* Utilitaire pour cacher visuellement mais garder accessible */
+    .visually-hidden {
+        position: absolute !important;
+        left: -10000px !important;
+        top: auto !important;
+        width: 1px !important;
+        height: 1px !important;
+        overflow: hidden !important;
+    }
+</style>
 {% endblock %}

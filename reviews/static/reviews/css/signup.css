@@ -31,7 +31,8 @@
   border-radius: 10px;
   margin: 2rem auto;
 }
-.login-box p:first-child {
+/* Nouveau titre h2 */
+.login-box h2#signup-heading {
   margin: 0 0 30px;
   padding: 0;
   color: #fff;
