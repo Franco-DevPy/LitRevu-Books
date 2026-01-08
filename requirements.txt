@@ -1,5 +1,5 @@
 asgiref==3.9.1
-Django==5.2.4
+Django==5.2.8
 django-browser-reload==1.18.0
 flake8==7.3.0
 flake8-html==0.4.3
