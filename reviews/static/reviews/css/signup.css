@@ -31,7 +31,7 @@
   border-radius: 10px;
   margin: 2rem auto;
 }
-/* Nouveau titre h2 */
+
 .login-box h2#signup-heading {
   margin: 0 0 30px;
   padding: 0;
@@ -226,7 +226,7 @@
   gap: 1rem;
 }
 
-/* --- Gestion autofill pour éviter fond blanc sur thème sombre --- */
+
 .login-box .user-box input:-webkit-autofill,
 .login-box .user-box input:-webkit-autofill:hover,
 .login-box .user-box input:-webkit-autofill:focus,

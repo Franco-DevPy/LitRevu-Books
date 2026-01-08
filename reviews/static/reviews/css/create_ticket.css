@@ -235,7 +235,7 @@
   margin: 30px 0;
 }
 
-/* Bouton de l'input fichier (minimal) */
+
 .box-file input[type="file"]::file-selector-button {
   background: #fff;
   color: #000;
@@ -246,7 +246,7 @@
   margin-right: 1rem;
 }
 
-/* Fallback Safari/anciens WebKit */
+
 .box-file input[type="file"]::-webkit-file-upload-button {
   background: #fff;
   color: #000;

@@ -59,7 +59,9 @@
   font-size: 12px;
 }
 
-.login-box form a {
+
+.login-box form a,
+.login-box button.submit-btn {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
@@ -72,20 +74,30 @@
   transition: 0.5s;
   margin-top: 40px;
   letter-spacing: 3px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
-.login-box a:hover {
+.login-box form a:hover,
+.login-box form a:focus-visible,
+.login-box button.submit-btn:hover,
+.login-box button.submit-btn:focus-visible {
   background: #fff;
   color: #272727;
   border-radius: 5px;
+  outline: none;
 }
 
-.login-box a span {
+.login-box form a span,
+.login-box button.submit-btn span {
   position: absolute;
   display: block;
 }
 
-.login-box a span:nth-child(1) {
+.login-box form a span:nth-child(1),
+.login-box button.submit-btn span:nth-child(1) {
   top: 0;
   left: -100%;
   width: 100%;
@@ -105,7 +117,8 @@
   }
 }
 
-.login-box a span:nth-child(2) {
+.login-box form a span:nth-child(2),
+.login-box button.submit-btn span:nth-child(2) {
   top: -100%;
   right: 0;
   width: 2px;
@@ -126,7 +139,8 @@
   }
 }
 
-.login-box a span:nth-child(3) {
+.login-box form a span:nth-child(3),
+.login-box button.submit-btn span:nth-child(3) {
   bottom: 0;
   right: -100%;
   width: 100%;
@@ -147,7 +161,8 @@
   }
 }
 
-.login-box a span:nth-child(4) {
+.login-box form a span:nth-child(4),
+.login-box button.submit-btn span:nth-child(4) {
   bottom: -100%;
   left: 0;
   width: 2px;
@@ -225,7 +240,7 @@
   margin: 30px 0;
 }
 
-/* Bouton de l'input fichier (minimal) */
+
 .box-file input[type="file"]::file-selector-button {
   background: #fff;
   color: #000;
@@ -236,7 +251,7 @@
   margin-right: 1rem;
 }
 
-/* Fallback Safari/anciens WebKit */
+
 .box-file input[type="file"]::-webkit-file-upload-button {
   background: #fff;
   color: #000;
@@ -247,7 +262,7 @@
   margin-right: 1rem;
 }
 
-/*  les boutons radio */
+
 
 .rating-box {
   width: 100%;
@@ -343,7 +358,7 @@
   }
 }
 
-/*  les boutons radio */
+
 
 .containerReview {
   display: flex;

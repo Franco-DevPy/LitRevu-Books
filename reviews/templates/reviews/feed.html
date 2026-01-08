@@ -67,7 +67,7 @@
                                 {% endif %}
                                 {% if request.user == post.user %}
                                 <a href="{% url 'modification-ticket' post.id %}">
-                                    <iconify-icon class="icon-user" icon="fa6-solid:user-pen" width="34"
+                                    <iconify-icon class="icon-user" title="Modifier ce ticket" icon="fa6-solid:user-pen" width="34"
                                         height="34"></iconify-icon>
                                 </a>
                                 {% endif %}
@@ -92,7 +92,7 @@
                                             title="Modifier cette critique">
                                             <iconify-icon icon="fa6-solid:pen-to-square" width="20"
                                                 height="20"></iconify-icon>
-                                            Modifier
+                                          
                                         </a>
                                     </p>
                                     {% endif %}

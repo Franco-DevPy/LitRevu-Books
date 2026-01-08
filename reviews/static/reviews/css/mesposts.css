@@ -232,7 +232,7 @@
   margin: 30px 0;
 }
 
-/* Bouton de l'input fichier (minimal) */
+
 .box-file input[type="file"]::file-selector-button {
   background: #fff;
   color: #000;
@@ -243,7 +243,7 @@
   margin-right: 1rem;
 }
 
-/* Fallback Safari/anciens WebKit */
+
 .box-file input[type="file"]::-webkit-file-upload-button {
   background: #fff;
   color: #000;
@@ -254,7 +254,6 @@
   margin-right: 1rem;
 }
 
-/*  les boutons radio */
 
 .rating-box {
   width: 100%;
@@ -426,30 +425,25 @@
   right: 0;
 }
 
-/* ========================================================= */
-/* AJOUTS POUR LISTES TICKETS & CRITIQUES (mesposts)         */
-/* ========================================================= */
 
-/* Harmoniser l'alignement (éviter décalage vertical quand la colonne de droite a plus de texte) */
 .containerReview {
-  align-items: flex-start; /* au lieu de center -> tout part du haut */
-  gap: 2.5rem; /* plus compact que 5rem */
+  align-items: flex-start;
+  gap: 2.5rem;
 }
 
-/* Bloc de chaque item (ticket/review) avec séparation */
 .boxTicket .containerReview {
   position: relative;
   padding: 1rem 0 1.4rem;
-  margin: 0; /* reset margin individuel */
+  margin: 0; 
 }
 
-/* Ligne de séparation entre éléments (sauf dernier) */
+
 .boxTicket .containerReview:not(:last-child) {
   border-bottom: 2px solid #fff;
-  margin-bottom: 2rem; /* espace après la ligne */
+  margin-bottom: 2rem; 
 }
 
-/* Petits carrés décoratifs gauche/droite comme le titre */
+
 .boxTicket .containerReview:not(:last-child)::before,
 .boxTicket .containerReview:not(:last-child)::after {
   content: "";
@@ -466,20 +460,20 @@
   right: 0;
 }
 
-/* Titre plus resserré */
+
 .containerDetail h3 {
   margin: 0 0 0.25rem;
   line-height: 1.2;
 }
 
-/* Description un peu moins large sur grands écrans pour lisibilité */
+
 @media (min-width: 1201px) {
   .containerDetail p.description {
     max-width: 460px;
   }
 }
 
-/* --------- Boutons & actions (déjà utilisés dans template) --------- */
+
 .actions-row {
   display: flex;
   gap: 0.8rem;
@@ -552,7 +546,6 @@
   letter-spacing: 0.5px;
 }
 
-/* Responsive ajusté pour réduire les gaps si petit écran */
 @media (max-width: 900px) {
   .containerReview {
     gap: 1.5rem;

@@ -1,4 +1,4 @@
-/* From Uiverse.io by andrei0x309 */
+
 .input {
   display: flex;
   flex-direction: row;
@@ -81,5 +81,3 @@
   margin-top: 1px;
 }
 
-.icon-feed {
-}

@@ -32,7 +32,7 @@
   margin: 2rem auto;
 }
 
-/* Titre de la boîte (h2 maintenant au lieu de p) */
+
 .login-box h2#connexion-heading {
   margin: 0 0 30px;
   padding: 0;
@@ -272,8 +272,7 @@ button.submit-anchor-like span {
   pointer-events: none;
 }
 
-/* --- Correction: champs autofill (Chrome / Firefox) apparaissaient en blanc --- */
-/* On force le rendu à rester cohérent avec l'UI sombre */
+
 .login-box .user-box input:-webkit-autofill,
 .login-box .user-box input:-webkit-autofill:hover,
 .login-box .user-box input:-webkit-autofill:focus,
@@ -292,7 +291,7 @@ button.submit-anchor-like span {
   border-bottom: 1px solid #fff !important;
 }
 
-/* Style normal forcé */
+
 .login-box .user-box input {
   background-color: #000 !important;
   color: #fff;

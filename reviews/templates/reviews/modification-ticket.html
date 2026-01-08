@@ -27,12 +27,12 @@
                         style="display:none;">
                     {% endif %}
 
-                    <!-- Bouton (icône) qui déclenche le file input -->
+                 
                     <button type="button" id="trigger-image-picker" class="edit-icon-btn" aria-label="Changer l'image">
                         <iconify-icon class="edit-icon" icon="lucide:edit" width="23" height="23"></iconify-icon>
                     </button>
 
-                    <!-- Input fichier caché -->
+              
                     <input type="file" name="image" id="id_image" accept="image/*" class="image-upload-input">
                 </div>
 
@@ -56,12 +56,7 @@
                 </div>
             </div>
 
-            <!-- Champs éditables -->
 
-
-
-
-            <!-- (image déjà gérée ci-dessus, pas besoin de {{ form.image }} répété) -->
 
             <div class="button-box">
                 <a href="{% url 'feed' %}">

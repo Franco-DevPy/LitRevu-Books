@@ -323,9 +323,6 @@ def review_delete_view(request, review_id):
 
 @login_required
 def ticket_review_create_view(request):
-    """
-    Crée simultanément un ticket et sa critique.
-    """
     if request.method == "POST":
         ticket_form = TicketForm(request.POST, request.FILES, prefix="ticket")
         review_form = ReviewForm(request.POST, prefix="review")

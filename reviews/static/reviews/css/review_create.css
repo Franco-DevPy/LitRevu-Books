@@ -73,14 +73,14 @@
   transition: 0.5s;
   margin-top: 40px;
   letter-spacing: 3px;
-  background: #2f2f2f; /* gris foncé */
+  background: #2f2f2f; 
   border: none;
   cursor: pointer;
 }
 
 .login-box a:hover,
 .login-box form button.action-btn:hover {
-  background: #444; /* éclairci léger */
+  background: #444;
   color: #ffffff;
   border-radius: 5px;
 }
@@ -235,7 +235,7 @@
   margin: 30px 0;
 }
 
-/* Bouton de l'input fichier (minimal) */
+
 .box-file input[type="file"]::file-selector-button {
   background: #fff;
   color: #000;
@@ -246,7 +246,7 @@
   margin-right: 1rem;
 }
 
-/* Fallback Safari/anciens WebKit */
+
 .box-file input[type="file"]::-webkit-file-upload-button {
   background: #fff;
   color: #000;
@@ -257,7 +257,7 @@
   margin-right: 1rem;
 }
 
-/*  les boutons radio */
+
 
 .rating-box {
   width: 100%;
@@ -353,7 +353,7 @@
   }
 }
 
-/*  les boutons radio */
+
 
 .containerReview {
   display: flex;
