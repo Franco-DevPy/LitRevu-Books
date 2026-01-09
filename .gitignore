@@ -20,3 +20,9 @@ Thumbs.db
 
 # Subidas locales (si no quieres versionar imágenes de desarrollo)
 media/
+
+# Base de datos local
+db.sqlite3
+
+# Reportes locales
+flake8_report/
