@@ -66,9 +66,10 @@
                                     alt="Illustration du ticket « {{ post.title|default:'(Sans titre)' }} »">
                                 {% endif %}
                                 {% if request.user == post.user %}
-                                <a href="{% url 'modification-ticket' post.id %}">
-                                    <iconify-icon class="icon-user" title="Modifier ce ticket" icon="fa6-solid:user-pen" width="34"
+                                <a href="{% url 'modification-ticket' post.id %}" aria-label="Modifier ce ticket">
+                                    <iconify-icon class="icon-user" icon="fa6-solid:user-pen" width="34"
                                         height="34"></iconify-icon>
+                                    <span class="visually-hidden">Modifier ce ticket</span>
                                 </a>
                                 {% endif %}
                             </div>
@@ -89,10 +90,10 @@
                                     {% if post.user_id == request.user.id %}
                                     <p class="review-actions">
                                         <a href="{% url 'review_edit' post.id %}" class="edit-review-link"
-                                            title="Modifier cette critique">
+                                            aria-label="Modifier cette critique">
                                             <iconify-icon icon="fa6-solid:pen-to-square" width="20"
                                                 height="20"></iconify-icon>
-                                          
+                                            <span class="visually-hidden">Modifier cette critique</span>
                                         </a>
                                     </p>
                                     {% endif %}

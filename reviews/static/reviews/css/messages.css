@@ -1,0 +1,58 @@
+.messages {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.messages .message {
+  position: relative;
+  padding: 0.6rem 2.2rem 0.6rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  opacity: 1;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.messages .message.fade-out {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.messages .message.success {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.messages .message.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.messages .message.warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.messages .message.info {
+  background: #e0f2fe;
+  color: #075985;
+}
+
+.messages .message-close {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: inherit;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.messages .message-close:focus {
+  outline: 2px solid rgba(0, 0, 0, 0.3);
+  outline-offset: 2px;
+}

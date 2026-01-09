@@ -109,9 +109,10 @@ def ticket_create_view(request):
             ticket = form.save(commit=False)
             ticket.user = request.user
             ticket.save()
+            messages.success(request, "Ticket créé.")
             return redirect(reverse("feed"))
         else:
-            print("Erreurs du formulaire :", form.errors)
+            messages.error(request, "Veuillez corriger les erreurs du formulaire.")
     else:
         form = TicketForm()
     return render(request, "reviews/ticket_create.html", {"form": form})
