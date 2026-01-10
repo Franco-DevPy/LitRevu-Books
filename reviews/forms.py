@@ -1,8 +1,6 @@
 from django import forms
 from .models import Ticket, Review
-from django.contrib.auth import get_user_model
 
-User = get_user_model()
 
 
 class TicketForm(forms.ModelForm):

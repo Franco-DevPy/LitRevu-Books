@@ -196,7 +196,6 @@ def abonnements(request):
         user=request.user, blocked=False
     ).select_related("followed_user")
 
-    # RELACIONES BLOQUEADAS
     following_blocked = UserFollows.objects.filter(
         user=request.user, blocked=True
     ).select_related("followed_user")
@@ -220,17 +219,14 @@ def mypost(request):
     """
     Mostrar los tickets y reviews del usuario conectado.
     """
-    # Obtener tickets del usuario, ordenados por fecha descendente
     tickets = Ticket.objects.filter(user=request.user).order_by("-time_created")
 
-    # Obtener reviews del usuario. select_related('ticket') evita consultas adicionales
     reviews = (
         Review.objects.filter(user=request.user)
         .select_related("ticket")
         .order_by("-time_created")
     )
 
-    # Conjunto de IDs de tickets ya criticados por el usuario (para ocultar el botón 'Ajouter une critique')
     reviewed_ticket_ids = set(reviews.values_list("ticket_id", flat=True))
 
     context = {
@@ -294,7 +290,6 @@ def review_edit_view(request, review_id):
     return render(request, "reviews/modification-critique.html", context)
 
 
-# BORRAR
 
 
 @login_required
